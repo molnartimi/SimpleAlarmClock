@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,14 +14,16 @@ import androidx.lifecycle.Observer;
 
 import com.learntodroid.simplealarmclock.data.Alarm;
 import com.learntodroid.simplealarmclock.data.AlarmRepository;
+import com.learntodroid.simplealarmclock.emergency.OnResponseTimerFiredListener;
 import com.learntodroid.simplealarmclock.service.AlarmService;
+import com.learntodroid.simplealarmclock.service.EmergencyService;
 import com.learntodroid.simplealarmclock.service.RescheduleAlarmsService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class AlarmBroadcastReceiver extends BroadcastReceiver {
+public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnResponseTimerFiredListener {
     public static final String MONDAY = "MONDAY";
     public static final String TUESDAY = "TUESDAY";
     public static final String WEDNESDAY = "WEDNESDAY";
@@ -92,6 +95,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     private void startAlarmService(Context context, Intent intent) {
         Intent intentService = new Intent(context, AlarmService.class);
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE));
+
+        EmergencyService.addTimeoutListener(this);
+        EmergencyService.startTimer();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intentService);
         } else {
@@ -106,5 +113,15 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         } else {
             context.startService(intentService);
         }
+    }
+
+    @Override
+    public void onTimeout() {
+        String phoneNo = "+36203240636";
+        String message = "Teszt sms üzenet Vészjelző Ébresztő alkalmazásból. Üdv, Timi";
+
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNo, null, message, null, null);
+        System.out.println("SMS sent.");
     }
 }

@@ -20,7 +20,7 @@ import com.learntodroid.simplealarmclock.R;
 
 import java.util.List;
 
-public class AlarmsListFragment extends Fragment implements OnToggleAlarmListener {
+public class AlarmsListFragment extends Fragment implements OnManageAlarmListener {
     private AlarmRecyclerViewAdapter alarmRecyclerViewAdapter;
     private AlarmsListViewModel alarmsListViewModel;
     private RecyclerView alarmsRecyclerView;
@@ -71,5 +71,11 @@ public class AlarmsListFragment extends Fragment implements OnToggleAlarmListene
             alarm.schedule(getContext());
             alarmsListViewModel.update(alarm);
         }
+    }
+
+    @Override
+    public void onDelete(Alarm alarm) {
+        alarm.cancelAlarm(getContext());
+        alarmsListViewModel.delete(alarm);
     }
 }

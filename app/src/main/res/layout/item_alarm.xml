@@ -56,6 +56,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
+            <Button
+                android:id="@+id/item_alarm_delete_button"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="x" />
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

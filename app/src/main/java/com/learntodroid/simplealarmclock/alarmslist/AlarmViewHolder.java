@@ -1,7 +1,7 @@
 package com.learntodroid.simplealarmclock.alarmslist;
 
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -17,12 +17,13 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
     private ImageView alarmRecurring;
     private TextView alarmRecurringDays;
     private TextView alarmTitle;
+    private Button alarmDeleteButton;
 
     Switch alarmStarted;
 
-    private OnToggleAlarmListener listener;
+    private OnManageAlarmListener listener;
 
-    public AlarmViewHolder(@NonNull View itemView, OnToggleAlarmListener listener) {
+    public AlarmViewHolder(@NonNull View itemView, OnManageAlarmListener listener) {
         super(itemView);
 
         alarmTime = itemView.findViewById(R.id.item_alarm_time);
@@ -30,6 +31,7 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
         alarmRecurring = itemView.findViewById(R.id.item_alarm_recurring);
         alarmRecurringDays = itemView.findViewById(R.id.item_alarm_recurringDays);
         alarmTitle = itemView.findViewById(R.id.item_alarm_title);
+        alarmDeleteButton = itemView.findViewById(R.id.item_alarm_delete_button);
 
         this.listener = listener;
     }
@@ -49,15 +51,22 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
         }
 
         if (alarm.getTitle().length() != 0) {
-            alarmTitle.setText(String.format("%s | %d | %d", alarm.getTitle(), alarm.getAlarmId(), alarm.getCreated()));
+            alarmTitle.setText(alarm.getTitle());
         } else {
-            alarmTitle.setText(String.format("%s | %d | %d", "Alarm", alarm.getAlarmId(), alarm.getCreated()));
+            alarmTitle.setText("Alarm");
         }
 
         alarmStarted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 listener.onToggle(alarm);
+            }
+        });
+
+        alarmDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onDelete(alarm);
             }
         });
     }
