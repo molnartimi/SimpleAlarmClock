@@ -15,6 +15,12 @@
             app:destination="@id/createAlarmFragment" />
     </fragment>
     <fragment
+        android:id="@+id/contactsListFragment"
+        android:name="com.learntodroid.simplealarmclock.contactslist.ContactsListFragment"
+        android:label="fragment contacts"
+        tools:layout="@layout/fragment_listcontacts" >
+    </fragment>
+    <fragment
         android:id="@+id/createAlarmFragment"
         android:name="com.learntodroid.simplealarmclock.createalarm.CreateAlarmFragment"
         android:label="CreateAlarmFragment" >

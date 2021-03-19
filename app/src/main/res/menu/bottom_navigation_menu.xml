@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@id/alarmsListFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_alarm_black_24dp"
+        android:title="@string/bottom_menu_item_alarms"/>
+    <item
+        android:id="@id/contactsListFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_contact_mail_black_24dp"
+        android:title="@string/bottom_menu_item_contacts"/>
+</menu>

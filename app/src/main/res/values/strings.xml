@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Simple Alarm Clock</string>
+    <string name="bottom_menu_item_alarms">Alarms</string>
+    <string name="bottom_menu_item_contacts">Contacts</string>
 </resources>

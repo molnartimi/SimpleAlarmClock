@@ -11,29 +11,29 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/fragment_listalarms_myAlarms"
+            android:id="@+id/fragment_listcontacts_myContacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="My Alarms"
+            android:text="My Contacts"
             android:textAlignment="center"
             android:gravity="center_horizontal"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_listalarms_recylerView"
+            android:id="@+id/fragment_listcontacts_recylerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_listalarms_myAlarms">
+            app:layout_constraintTop_toBottomOf="@+id/fragment_listcontacts_myContacts">
 
         </androidx.recyclerview.widget.RecyclerView>
 
         <Button
-            android:id="@+id/fragment_listalarms_addAlarm"
+            android:id="@+id/fragment_listcontacts_addContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Add Alarm"
+            android:text="Add Contact"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
