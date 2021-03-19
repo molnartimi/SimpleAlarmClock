@@ -1,7 +1,5 @@
 package com.learntodroid.simplealarmclock.service;
 
-import android.app.Application;
-import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
@@ -9,8 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleService;
 import androidx.lifecycle.Observer;
 
-import com.learntodroid.simplealarmclock.data.Alarm;
-import com.learntodroid.simplealarmclock.data.AlarmRepository;
+import com.learntodroid.simplealarmclock.data.alarm.Alarm;
+import com.learntodroid.simplealarmclock.data.alarm.AlarmRepository;
 
 import java.util.List;
 

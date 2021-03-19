@@ -6,7 +6,6 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,8 +16,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.learntodroid.simplealarmclock.R;
-import com.learntodroid.simplealarmclock.createalarm.TimePickerUtil;
-import com.learntodroid.simplealarmclock.data.Alarm;
+import com.learntodroid.simplealarmclock.data.alarm.Alarm;
 import com.learntodroid.simplealarmclock.service.AlarmService;
 import com.learntodroid.simplealarmclock.service.EmergencyService;
 

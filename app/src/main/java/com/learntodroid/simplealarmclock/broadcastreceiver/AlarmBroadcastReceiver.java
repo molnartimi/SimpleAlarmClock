@@ -1,27 +1,21 @@
 package com.learntodroid.simplealarmclock.broadcastreceiver;
 
-import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.lifecycle.Observer;
-
-import com.learntodroid.simplealarmclock.data.Alarm;
-import com.learntodroid.simplealarmclock.data.AlarmRepository;
+import com.learntodroid.simplealarmclock.application.App;
+import com.learntodroid.simplealarmclock.data.contact.Contact;
+import com.learntodroid.simplealarmclock.data.contact.ContactRepository;
 import com.learntodroid.simplealarmclock.emergency.OnResponseTimerFiredListener;
 import com.learntodroid.simplealarmclock.service.AlarmService;
 import com.learntodroid.simplealarmclock.service.EmergencyService;
 import com.learntodroid.simplealarmclock.service.RescheduleAlarmsService;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnResponseTimerFiredListener {
     public static final String MONDAY = "MONDAY";
@@ -34,8 +28,14 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnRespo
     public static final String RECURRING = "RECURRING";
     public static final String TITLE = "TITLE";
 
+    private ContactRepository contactRepository;
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (contactRepository == null) {
+            App mApplication = ((App)context.getApplicationContext());
+            contactRepository = new ContactRepository(mApplication);
+        }
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             String toastText = String.format("Alarm Reboot");
             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
@@ -117,11 +117,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnRespo
 
     @Override
     public void onTimeout() {
-        String phoneNo = "+36203240636";
         String message = "Teszt sms üzenet Vészjelző Ébresztő alkalmazásból. Üdv, Timi";
-
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNo, null, message, null, null);
-        System.out.println("SMS sent.");
+        for (Contact contact: contactRepository.getContacts()) {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(contact.getPhoneNumber(), null, message, null, null);
+            System.out.println("SMS sent to contact " + contact.getContactName());
+        }
     }
 }

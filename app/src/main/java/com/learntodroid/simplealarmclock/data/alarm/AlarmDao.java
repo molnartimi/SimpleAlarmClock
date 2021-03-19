@@ -1,4 +1,4 @@
-package com.learntodroid.simplealarmclock.data;
+package com.learntodroid.simplealarmclock.data.alarm;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

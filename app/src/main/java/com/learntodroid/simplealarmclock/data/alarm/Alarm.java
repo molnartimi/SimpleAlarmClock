@@ -1,4 +1,4 @@
-package com.learntodroid.simplealarmclock.data;
+package com.learntodroid.simplealarmclock.data.alarm;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

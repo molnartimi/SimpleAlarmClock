@@ -1,6 +1,6 @@
 package com.learntodroid.simplealarmclock.alarmslist;
 
-import com.learntodroid.simplealarmclock.data.Alarm;
+import com.learntodroid.simplealarmclock.data.alarm.Alarm;
 
 public interface OnManageAlarmListener {
     void onToggle(Alarm alarm);

@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.learntodroid.simplealarmclock.R;
-import com.learntodroid.simplealarmclock.data.Alarm;
+import com.learntodroid.simplealarmclock.data.alarm.Alarm;
 
 import java.util.Random;
 

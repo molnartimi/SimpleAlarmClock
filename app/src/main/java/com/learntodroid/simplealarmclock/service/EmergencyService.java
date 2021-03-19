@@ -20,7 +20,7 @@ public class EmergencyService {
             public void run() {
                 callListeners();
             }
-        }, 10000L);
+        }, 60000L);
     }
 
     public static void stopTimer() {
