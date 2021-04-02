@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class EmergencyService {
+public class EmergencyMessageSendingTimerService {
     private static Timer responseTimer;
     private static Set<OnResponseTimerFiredListener> listeners;
 
@@ -20,7 +20,7 @@ public class EmergencyService {
             public void run() {
                 callListeners();
             }
-        }, 60000L);
+        }, 10000L);
     }
 
     public static void stopTimer() {
