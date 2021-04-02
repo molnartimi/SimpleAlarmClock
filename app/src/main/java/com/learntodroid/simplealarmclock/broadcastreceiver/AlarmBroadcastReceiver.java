@@ -13,8 +13,10 @@ import com.learntodroid.simplealarmclock.data.contact.ContactRepository;
 import com.learntodroid.simplealarmclock.emergency.OnResponseTimerFiredListener;
 import com.learntodroid.simplealarmclock.service.AlarmService;
 import com.learntodroid.simplealarmclock.service.EmergencyMessageSendingTimerService;
+import com.learntodroid.simplealarmclock.service.EmergencyTextService;
 import com.learntodroid.simplealarmclock.service.RescheduleAlarmsService;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnResponseTimerFiredListener {
@@ -29,6 +31,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnRespo
     public static final String TITLE = "TITLE";
 
     private ContactRepository contactRepository;
+    private String messageToSend;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -96,6 +99,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnRespo
         Intent intentService = new Intent(context, AlarmService.class);
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE));
 
+        messageToSend = new EmergencyTextService(context).getMessageText();
         EmergencyMessageSendingTimerService.addTimeoutListener(this);
         EmergencyMessageSendingTimerService.startTimer();
 
@@ -117,10 +121,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnRespo
 
     @Override
     public void onTimeout() {
-        String message = "Teszt sms üzenet Vészjelző Ébresztő alkalmazásból. Üdv, Timi";
+        SmsManager smsManager = SmsManager.getDefault();
+        ArrayList<String> dividedParts = smsManager.divideMessage(messageToSend);
         for (Contact contact: contactRepository.getContacts()) {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(contact.getPhoneNumber(), null, message, null, null);
+            smsManager.sendMultipartTextMessage(contact.getPhoneNumber(), null, dividedParts, null, null);
             System.out.println("SMS sent to contact " + contact.getContactName());
         }
     }
