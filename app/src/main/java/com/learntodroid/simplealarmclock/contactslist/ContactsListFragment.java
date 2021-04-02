@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,16 +23,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.learntodroid.simplealarmclock.R;
 import com.learntodroid.simplealarmclock.data.contact.Contact;
+import com.learntodroid.simplealarmclock.service.EmergencyTextService;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ContactsListFragment extends Fragment implements OnManageContactListener {
     private static final int RESULT_PICK_CONTACT = 1;
 
     private ContactRecyclerViewAdapter contactRecyclerViewAdapter;
     private ContactsListViewModel contactsListViewModel;
-    private RecyclerView contactsRecyclerView;
-    private Button addContact;
+    @BindView(R.id.fragment_listcontacts_recylerView) RecyclerView contactsRecyclerView;
+    @BindView(R.id.fragment_listcontacts_addContact) Button addContact;
+    @BindView(R.id.fragment_listcontacts_messageText) TextView messageText;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,12 +59,13 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listcontacts, container, false);
+        ButterKnife.bind(this, view);
 
-        contactsRecyclerView = view.findViewById(R.id.fragment_listcontacts_recylerView);
         contactsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         contactsRecyclerView.setAdapter(contactRecyclerViewAdapter);
 
-        addContact = view.findViewById(R.id.fragment_listcontacts_addContact);
+        messageText.setText(new EmergencyTextService(getContext()).getMessageText());
+
         addContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

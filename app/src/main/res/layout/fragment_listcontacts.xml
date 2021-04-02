@@ -11,14 +11,37 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/fragment_listcontacts_messageTextLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Message text to send to contacts in case of emergency"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="10dp"/>
+
+        <TextView
+            android:id="@+id/fragment_listcontacts_messageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Template text message"
+            android:padding="10dp"
+            android:layout_margin="20dp"
+            android:background="@color/lightYellow"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageTextLabel" />
+
+        <TextView
             android:id="@+id/fragment_listcontacts_myContacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="My Contacts"
             android:textAlignment="center"
             android:gravity="center_horizontal"
+            android:layout_marginVertical="20dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_listcontacts_recylerView"
