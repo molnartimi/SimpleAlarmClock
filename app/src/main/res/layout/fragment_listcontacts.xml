@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,34 +14,81 @@
             android:id="@+id/fragment_listcontacts_messageTextLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Message text to send to contacts in case of emergency"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintTop_toTopOf="parent"
             android:paddingHorizontal="20dp"
-            android:paddingTop="10dp"/>
+            android:paddingTop="10dp"
+            android:text="Emergency Message"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/fragment_listcontacts_messageText"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_listcontacts_messageTextContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Template text message"
-            android:padding="10dp"
-            android:layout_margin="20dp"
-            android:background="@color/lightYellow"
+            app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageTextLabel">
 
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageTextLabel" />
+            <TextView
+                android:id="@+id/fragment_listcontacts_messageText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@color/lightYellow"
+                android:padding="10dp"
+                android:text="Template text message"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/fragment_listcontacts_messageTextEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:padding="10dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/fragment_listcontacts_editText_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:layout_marginRight="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageText"/>
+
+            <Button
+                android:id="@+id/fragment_listcontacts_editTextCancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@id/fragment_listcontacts_saveText_button"
+                app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageTextEdit"/>
+
+            <Button
+                android:id="@+id/fragment_listcontacts_saveText_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:visibility="gone"
+                android:layout_marginRight="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageTextEdit"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/fragment_listcontacts_myContacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:gravity="center_horizontal"
             android:text="My Contacts"
             android:textAlignment="center"
-            android:gravity="center_horizontal"
-            android:layout_marginVertical="20dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageText" />
+            app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageTextContainer" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_listcontacts_recylerView"

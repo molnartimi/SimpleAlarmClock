@@ -18,10 +18,14 @@ public class EmergencyTextService {
     }
 
     public String getMessageText() {
-        return sharedPref.getString(TEXT_KEY, DEFAULT_MESSAGE);
+        return sharedPref.getString(TEXT_KEY, DEFAULT_MESSAGE).trim();
     }
 
     public void updateMessageText(String message) {
+        if (message == null) {
+            // TODO LOG warning
+            return;
+        }
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(TEXT_KEY, message);
         editor.apply();

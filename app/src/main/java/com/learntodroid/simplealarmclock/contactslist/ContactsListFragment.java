@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,9 +36,14 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
 
     private ContactRecyclerViewAdapter contactRecyclerViewAdapter;
     private ContactsListViewModel contactsListViewModel;
+    private EmergencyTextService emergencyTextService;
     @BindView(R.id.fragment_listcontacts_recylerView) RecyclerView contactsRecyclerView;
     @BindView(R.id.fragment_listcontacts_addContact) Button addContact;
+    @BindView(R.id.fragment_listcontacts_editText_button) Button editTextButton;
+    @BindView(R.id.fragment_listcontacts_saveText_button) Button saveTextButton;
+    @BindView(R.id.fragment_listcontacts_editTextCancel_button) Button cancelEditTextButton;
     @BindView(R.id.fragment_listcontacts_messageText) TextView messageText;
+    @BindView(R.id.fragment_listcontacts_messageTextEdit) EditText messageTextEdit;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +59,8 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
                 }
             }
         });
+
+        emergencyTextService = new EmergencyTextService(requireContext());
     }
 
     @Nullable
@@ -64,12 +72,33 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
         contactsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         contactsRecyclerView.setAdapter(contactRecyclerViewAdapter);
 
-        messageText.setText(new EmergencyTextService(getContext()).getMessageText());
+        messageText.setText(emergencyTextService.getMessageText());
 
         addContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openSystemContactList();
+            }
+        });
+
+        editTextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setMessageTextEditable();
+            }
+        });
+
+        saveTextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveEditedText();
+            }
+        });
+
+        cancelEditTextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelTextEditing();
             }
         });
 
@@ -121,5 +150,33 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
             cursor.close();
         }
         return null;
+    }
+
+    private void saveEditedText() {
+        String newMessageText = messageTextEdit.getText().toString();
+        emergencyTextService.updateMessageText(newMessageText);
+        messageText.setText(newMessageText);
+        toggleMessageTextView(false);
+    }
+
+    private void cancelTextEditing() {
+        toggleMessageTextView(false);
+    }
+
+    private void setMessageTextEditable() {
+        messageTextEdit.setText(emergencyTextService.getMessageText());
+        toggleMessageTextView(true);
+    }
+
+    private void toggleMessageTextView(boolean editable) {
+        int edit = editable ? View.VISIBLE : View.GONE;
+        int view = editable ? View.GONE : View.VISIBLE;
+
+        editTextButton.setVisibility(view);
+        messageText.setVisibility(view);
+
+        messageTextEdit.setVisibility(edit);
+        saveTextButton.setVisibility(edit);
+        cancelEditTextButton.setVisibility(edit);
     }
 }
