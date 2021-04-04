@@ -6,12 +6,11 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -36,6 +35,7 @@ import butterknife.ButterKnife;
 
 public class ContactsListFragment extends Fragment implements OnManageContactListener {
     private static final int RESULT_PICK_CONTACT = 1;
+    private static final String TAG = "ContactListFragment";
 
     private ContactRecyclerViewAdapter contactRecyclerViewAdapter;
     private ContactsListViewModel contactsListViewModel;
@@ -43,9 +43,10 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
     private SavedTimeoutValueHolder timeoutValueHolder;
     @BindView(R.id.fragment_listcontacts_recylerView) RecyclerView contactsRecyclerView;
     @BindView(R.id.fragment_listcontacts_addContact) Button addContact;
-    @BindView(R.id.fragment_listcontacts_editText_button) Button editTextButton;
     @BindView(R.id.fragment_listcontacts_saveText_button) Button saveTextButton;
+    @BindView(R.id.fragment_listcontacts_saveTimeout_button) Button saveTimeoutButton;
     @BindView(R.id.fragment_listcontacts_editTextCancel_button) Button cancelEditTextButton;
+    @BindView(R.id.fragment_listcontacts_editTimeoutCancel_button) Button cancelEditTimeoutButton;
     @BindView(R.id.fragment_listcontacts_messageText) TextView messageText;
     @BindView(R.id.fragment_listcontacts_messageTextEdit) EditText messageTextEdit;
     @BindView(R.id.fragment_listcontacts_timeout) EditText timeoutTextEdit;
@@ -87,7 +88,7 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
             }
         });
 
-        editTextButton.setOnClickListener(new View.OnClickListener() {
+        messageText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setMessageTextEditable();
@@ -109,20 +110,26 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
         });
 
         timeoutTextEdit.setText(timeoutValueHolder.getTimeoutString());
-        timeoutTextEdit.addTextChangedListener(new TextWatcher() {
+        timeoutTextEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // noop
+            public void onFocusChange(View v, boolean hasFocus) {
+                toggleTimeoutView(hasFocus);
             }
+        });
 
+        cancelEditTimeoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // noop
+            public void onClick(View v) {
+                timeoutTextEdit.setText(timeoutValueHolder.getTimeoutString());
+                toggleTimeoutView(false);
             }
+        });
 
+        saveTimeoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void afterTextChanged(Editable s) {
-                timeoutValueHolder.setTimeoutString(s.toString());
+            public void onClick(View v) {
+                timeoutValueHolder.setTimeoutString(timeoutTextEdit.getText().toString());
+                toggleTimeoutView(false);
             }
         });
 
@@ -143,10 +150,10 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
                     contactsListViewModel.insert(contact);
                     break;
                 default:
-                    Log.e("ContactListFragment", "Unexpected value: " + requestCode);
+                    Log.e(TAG, "Unexpected value: " + requestCode);
             }
         } else {
-            Log.e("ContactListFragment", "Failed to pick contact");
+            Log.e(TAG, "Failed to pick contact");
         }
     }
 
@@ -196,11 +203,29 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
         int edit = editable ? View.VISIBLE : View.GONE;
         int view = editable ? View.GONE : View.VISIBLE;
 
-        editTextButton.setVisibility(view);
         messageText.setVisibility(view);
 
         messageTextEdit.setVisibility(edit);
         saveTextButton.setVisibility(edit);
         cancelEditTextButton.setVisibility(edit);
+        if (!editable) {
+            hideKeyboard();
+        }
+    }
+
+    private void toggleTimeoutView(boolean editing) {
+        int edit = editing ? View.VISIBLE : View.GONE;
+
+        cancelEditTimeoutButton.setVisibility(edit);
+        saveTimeoutButton.setVisibility(edit);
+        if (!editing) {
+            timeoutTextEdit.clearFocus();
+            hideKeyboard();
+        }
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(timeoutTextEdit.getWindowToken(), 0);
     }
 }
