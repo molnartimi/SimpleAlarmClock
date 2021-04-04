@@ -1,6 +1,8 @@
 package com.learntodroid.simplealarmclock.data.contact;
 
 import android.app.Application;
+import android.database.sqlite.SQLiteConstraintException;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -18,7 +20,11 @@ public class ContactRepository {
 
     public void insert(Contact contact) {
         ContactDatabase.databaseWriteExecutor.execute(() -> {
-            contactDao.insert(contact);
+            try {
+                contactDao.insert(contact);
+            } catch (SQLiteConstraintException exception) {
+                Log.i("ContactRepository", "Phone number of this contact is already in contact list: " + contact.getContactName());
+            }
         });
     }
 
