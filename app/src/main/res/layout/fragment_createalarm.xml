@@ -15,8 +15,10 @@
             android:id="@+id/fragment_createalarm_scheduleAlarmHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Schedule Alarm"
+            android:text="@string/schedule_alarm"
             android:textAlignment="center"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.4"
-                android:text="Alarm Time"
+                android:text="@string/alarm_time"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -48,7 +50,7 @@
             android:id="@+id/fragment_createalarm_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Alarm Title"
+            android:hint="@string/alarm_title"
             app:layout_constraintTop_toBottomOf="@+id/fragment_createalarm_timePickerLayout" />
 
         <CheckBox
@@ -56,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="Recurring Alarm"
+            android:text="@string/recurring_alarm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_createalarm_title" />
 
@@ -72,43 +74,43 @@
                 android:id="@+id/fragment_createalarm_checkMon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mon" />
+                android:text="@string/mon" />
 
             <CheckBox
                 android:id="@+id/fragment_createalarm_checkTue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tue" />
+                android:text="@string/tue" />
 
             <CheckBox
                 android:id="@+id/fragment_createalarm_checkWed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wed" />
+                android:text="@string/wed" />
 
             <CheckBox
                 android:id="@+id/fragment_createalarm_checkThu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thu" />
+                android:text="@string/thu" />
 
             <CheckBox
                 android:id="@+id/fragment_createalarm_checkFri"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fri" />
+                android:text="@string/fri" />
 
             <CheckBox
                 android:id="@+id/fragment_createalarm_checkSat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sat" />
+                android:text="@string/sat" />
 
             <CheckBox
                 android:id="@+id/fragment_createalarm_checkSun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sun" />
+                android:text="@string/sun" />
 
         </LinearLayout>
 
@@ -117,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Schedule Alarm"
+            android:text="@string/save_alarm"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="133dp" />
 

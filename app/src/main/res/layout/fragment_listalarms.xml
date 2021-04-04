@@ -14,9 +14,10 @@
             android:id="@+id/fragment_listalarms_myAlarms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="My Alarms"
+            android:text="@string/my_alarms"
             android:textAlignment="center"
             android:gravity="center_horizontal"
+            android:padding="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Add Alarm"
+            android:text="@string/add_alarm"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

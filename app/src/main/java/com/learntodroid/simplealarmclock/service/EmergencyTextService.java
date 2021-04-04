@@ -7,7 +7,7 @@ public class EmergencyTextService {
     private static final String PREF_FILE_KEY = "simple_alarm_clock_preferences";
     private static final String TEXT_KEY = "emergency_message_text";
     private static final String DEFAULT_MESSAGE =
-            "[TESZT SMS] SEGÍTS! Ez egy automatikusan küldött SMS a Vészjelző Ébresztő alkalmazásból, " +
+            "SEGÍTS! Ez egy automatikusan küldött SMS a Vészjelző Ébresztő alkalmazásból, " +
                     "mert nem reagáltam a beállított ébresztőre. " +
                     "Kérlek nézz rám, lehet, hogy rosszul vagyok!";
 

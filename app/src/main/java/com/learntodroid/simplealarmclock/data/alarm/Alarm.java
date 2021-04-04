@@ -144,7 +144,7 @@ public class Alarm {
         if (!recurring) {
             String toastText = null;
             try {
-                toastText = String.format("One Time Alarm %s scheduled for %s at %02d:%02d", title, DayUtil.toDay(calendar.get(Calendar.DAY_OF_WEEK)), hour, minute, alarmId);
+                toastText = String.format("Egyszeri ébresztő %s mentve %02d:%02d időpontra", title, hour, minute, alarmId);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -156,7 +156,7 @@ public class Alarm {
                     alarmPendingIntent
             );
         } else {
-            String toastText = String.format("Recurring Alarm %s scheduled for %s at %02d:%02d", title, getRecurringDaysText(), hour, minute, alarmId);
+            String toastText = String.format("Ismétlődő ébresztő %s mentve %s napokra %02d:%02d időpontban", title, getRecurringDaysText(), hour, minute, alarmId);
             Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
 
             final long RUN_DAILY = 24 * 60 * 60 * 1000;
@@ -178,7 +178,7 @@ public class Alarm {
         alarmManager.cancel(alarmPendingIntent);
         this.started = false;
 
-        String toastText = String.format("Alarm cancelled for %02d:%02d with id %d", hour, minute, alarmId);
+        String toastText = String.format("Ébresztő kikapcsolva %02d:%02d időpontra", hour, minute, alarmId);
         Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
         Log.i("cancel", toastText);
     }
@@ -188,27 +188,28 @@ public class Alarm {
             return null;
         }
 
+        // TODO string resources
         String days = "";
         if (monday) {
-            days += "Mo ";
+            days += "Hé ";
         }
         if (tuesday) {
-            days += "Tu ";
+            days += "Ke ";
         }
         if (wednesday) {
-            days += "We ";
+            days += "Sze ";
         }
         if (thursday) {
-            days += "Th ";
+            days += "Cs ";
         }
         if (friday) {
-            days += "Fr ";
+            days += "Pé ";
         }
         if (saturday) {
-            days += "Sa ";
+            days += "Szo ";
         }
         if (sunday) {
-            days += "Su ";
+            days += "Va ";
         }
 
         return days;

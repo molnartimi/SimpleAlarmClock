@@ -1,5 +1,27 @@
 <resources>
     <string name="app_name">Simple Alarm Clock</string>
-    <string name="bottom_menu_item_alarms">Alarms</string>
-    <string name="bottom_menu_item_contacts">Contacts</string>
+    <string name="bottom_menu_item_alarms">Ébresztők</string>
+    <string name="bottom_menu_item_contacts">Értesítendő személyek</string>
+    <string name="schedule_alarm">Új ébresztő felvétele</string>
+    <string name="alarm_time">Ébresztés ideje</string>
+    <string name="alarm_title">Ébresztés neve (opcionális)</string>
+    <string name="recurring_alarm">Ismétlődő ébresztő</string>
+    <string name="mon">H</string>
+    <string name="tue">K</string>
+    <string name="wed">Sz</string>
+    <string name="thu">Cs</string>
+    <string name="fri">P</string>
+    <string name="sat">Sz</string>
+    <string name="sun">V</string>
+    <string name="save_alarm">Mentés</string>
+    <string name="my_alarms">Beállított ébresztők</string>
+    <string name="add_alarm">Új ébresztő</string>
+    <string name="emergency_message">Üzenet baj esetén</string>
+    <string name="edit">Módosít</string>
+    <string name="cancel">Mégse</string>
+    <string name="save">Mentés</string>
+    <string name="my_contacts">Értesítendő személyek</string>
+    <string name="add_contact">Új személy</string>
+    <string name="once_off">Egyszeri</string>
+    <string name="default_alarm_title">Ébresztő</string>
 </resources>

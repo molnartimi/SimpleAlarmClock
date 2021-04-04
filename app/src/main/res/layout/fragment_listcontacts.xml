@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="20dp"
             android:paddingTop="10dp"
-            android:text="Emergency Message"
+            android:text="@string/emergency_message"
             android:gravity="center_horizontal"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:background="@color/lightYellow"
+                android:background="@color/messageTextBackground"
                 android:padding="10dp"
                 android:text="Template text message"
 
@@ -52,7 +52,7 @@
                 android:id="@+id/fragment_listcontacts_editText_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
+                android:text="@string/edit"
                 android:layout_marginRight="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageText"/>
@@ -61,7 +61,7 @@
                 android:id="@+id/fragment_listcontacts_editTextCancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@id/fragment_listcontacts_saveText_button"
                 app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageTextEdit"/>
@@ -70,7 +70,7 @@
                 android:id="@+id/fragment_listcontacts_saveText_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
+                android:text="@string/save"
                 android:visibility="gone"
                 android:layout_marginRight="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -85,8 +85,9 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
             android:gravity="center_horizontal"
-            android:text="My Contacts"
+            android:text="@string/my_contacts"
             android:textAlignment="center"
+            android:padding="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_messageTextContainer" />
 
@@ -103,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Add Contact"
+            android:text="@string/add_contact"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
