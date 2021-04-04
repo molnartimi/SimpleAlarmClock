@@ -1,11 +1,7 @@
 package com.learntodroid.simplealarmclock.activities;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
@@ -29,12 +25,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setupBottomNavigation();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-        return super.onCreateView(name, context, attrs);
     }
 
     private void setupBottomNavigation() {
