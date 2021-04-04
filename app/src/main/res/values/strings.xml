@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple Alarm Clock</string>
+    <string name="app_name">Vészjelző Ébresztő</string>
     <string name="bottom_menu_item_alarms">Ébresztők</string>
     <string name="bottom_menu_item_contacts">Értesítendő személyek</string>
     <string name="schedule_alarm">Új ébresztő felvétele</string>
@@ -24,4 +24,8 @@
     <string name="add_contact">Új személy</string>
     <string name="once_off">Egyszeri</string>
     <string name="default_alarm_title">Ébresztő</string>
+    <string name="ring_ring">Vészjelző Ébresztő</string>
+    <string name="dismiss">Kikapcsolás</string>
+    <string name="snooze">Szundi</string>
+    <string name="cancel_schedule_alarm">Mégse</string>
 </resources>

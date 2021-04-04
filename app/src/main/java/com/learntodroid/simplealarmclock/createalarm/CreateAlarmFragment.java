@@ -29,6 +29,7 @@ public class CreateAlarmFragment extends Fragment {
     @BindView(R.id.fragment_createalarm_timePicker) TimePicker timePicker;
     @BindView(R.id.fragment_createalarm_title) EditText title;
     @BindView(R.id.fragment_createalarm_scheduleAlarm) Button scheduleAlarm;
+    @BindView(R.id.fragment_createalarm_cancelButton) Button cancelButton;
     @BindView(R.id.fragment_createalarm_recurring) CheckBox recurring;
     @BindView(R.id.fragment_createalarm_checkMon) CheckBox mon;
     @BindView(R.id.fragment_createalarm_checkTue) CheckBox tue;
@@ -70,6 +71,13 @@ public class CreateAlarmFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 scheduleAlarm();
+                Navigation.findNavController(v).navigate(R.id.action_createAlarmFragment_to_alarmsListFragment);
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_createAlarmFragment_to_alarmsListFragment);
             }
         });
