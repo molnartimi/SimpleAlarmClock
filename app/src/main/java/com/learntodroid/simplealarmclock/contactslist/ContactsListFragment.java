@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.learntodroid.simplealarmclock.R;
 import com.learntodroid.simplealarmclock.data.contact.Contact;
-import com.learntodroid.simplealarmclock.service.EmergencyTextService;
+import com.learntodroid.simplealarmclock.service.EmergencyTextValueHolder;
+import com.learntodroid.simplealarmclock.service.SavedTimeoutValueHolder;
 
 import java.util.List;
 
@@ -36,7 +39,8 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
 
     private ContactRecyclerViewAdapter contactRecyclerViewAdapter;
     private ContactsListViewModel contactsListViewModel;
-    private EmergencyTextService emergencyTextService;
+    private EmergencyTextValueHolder emergencyTextService;
+    private SavedTimeoutValueHolder timeoutValueHolder;
     @BindView(R.id.fragment_listcontacts_recylerView) RecyclerView contactsRecyclerView;
     @BindView(R.id.fragment_listcontacts_addContact) Button addContact;
     @BindView(R.id.fragment_listcontacts_editText_button) Button editTextButton;
@@ -44,6 +48,7 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
     @BindView(R.id.fragment_listcontacts_editTextCancel_button) Button cancelEditTextButton;
     @BindView(R.id.fragment_listcontacts_messageText) TextView messageText;
     @BindView(R.id.fragment_listcontacts_messageTextEdit) EditText messageTextEdit;
+    @BindView(R.id.fragment_listcontacts_timeout) EditText timeoutTextEdit;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +65,8 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
             }
         });
 
-        emergencyTextService = new EmergencyTextService(requireContext());
+        emergencyTextService = new EmergencyTextValueHolder(requireContext());
+        timeoutValueHolder = new SavedTimeoutValueHolder(requireContext());
     }
 
     @Nullable
@@ -99,6 +105,24 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
             @Override
             public void onClick(View v) {
                 cancelTextEditing();
+            }
+        });
+
+        timeoutTextEdit.setText(timeoutValueHolder.getTimeoutString());
+        timeoutTextEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // noop
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // noop
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                timeoutValueHolder.setTimeoutString(s.toString());
             }
         });
 

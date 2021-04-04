@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Vészjelző Ébresztő</string>
     <string name="bottom_menu_item_alarms">Ébresztők</string>
-    <string name="bottom_menu_item_contacts">Értesítendő személyek</string>
+    <string name="bottom_menu_item_contacts">Vész üzenet</string>
     <string name="schedule_alarm">Új ébresztő felvétele</string>
     <string name="alarm_time">Ébresztés ideje</string>
     <string name="alarm_title">Ébresztés neve (opcionális)</string>
@@ -28,4 +28,9 @@
     <string name="dismiss">Kikapcsolás</string>
     <string name="snooze">Szundi</string>
     <string name="cancel_schedule_alarm">Mégse</string>
+    <string name="default_emergency_message_text">SEGÍTS! Ez egy automatikusan küldött SMS
+        a Vészjelző Ébresztő alkalmazásból, mert nem reagáltam a beállított ébresztőre.
+        Kérlek nézz rám, lehet, hogy rosszul vagyok!</string>
+    <string name="emergency_timeout">Maximum tétlenség</string>
+    <string name="minute">perc</string>
 </resources>

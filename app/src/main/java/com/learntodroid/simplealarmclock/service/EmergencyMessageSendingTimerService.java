@@ -11,7 +11,7 @@ public class EmergencyMessageSendingTimerService {
     private static Timer responseTimer;
     private static Set<OnResponseTimerFiredListener> listeners;
 
-    public static void startTimer() {
+    public static void startTimer(int timeout) {
         if (responseTimer == null) {
             responseTimer = new Timer();
         }
@@ -20,7 +20,7 @@ public class EmergencyMessageSendingTimerService {
             public void run() {
                 callListeners();
             }
-        }, 10000L);
+        }, timeout);
     }
 
     public static void stopTimer() {

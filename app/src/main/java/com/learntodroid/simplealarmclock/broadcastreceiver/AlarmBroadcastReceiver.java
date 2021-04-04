@@ -13,8 +13,9 @@ import com.learntodroid.simplealarmclock.data.contact.ContactRepository;
 import com.learntodroid.simplealarmclock.emergency.OnResponseTimerFiredListener;
 import com.learntodroid.simplealarmclock.service.AlarmService;
 import com.learntodroid.simplealarmclock.service.EmergencyMessageSendingTimerService;
-import com.learntodroid.simplealarmclock.service.EmergencyTextService;
+import com.learntodroid.simplealarmclock.service.EmergencyTextValueHolder;
 import com.learntodroid.simplealarmclock.service.RescheduleAlarmsService;
+import com.learntodroid.simplealarmclock.service.SavedTimeoutValueHolder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -99,9 +100,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnRespo
         Intent intentService = new Intent(context, AlarmService.class);
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE));
 
-        messageToSend = new EmergencyTextService(context).getMessageText();
+        messageToSend = new EmergencyTextValueHolder(context).getMessageText();
         EmergencyMessageSendingTimerService.addTimeoutListener(this);
-        EmergencyMessageSendingTimerService.startTimer();
+        EmergencyMessageSendingTimerService.startTimer(new SavedTimeoutValueHolder(context).getTimeoutInMilisec());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intentService);
