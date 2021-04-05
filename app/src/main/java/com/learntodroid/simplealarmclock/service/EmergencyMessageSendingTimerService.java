@@ -27,6 +27,7 @@ public class EmergencyMessageSendingTimerService {
         if (responseTimer != null) {
             responseTimer.cancel();
             responseTimer = null;
+            listeners.clear();
         }
     }
 
