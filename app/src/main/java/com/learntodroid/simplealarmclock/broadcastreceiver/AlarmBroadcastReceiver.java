@@ -37,25 +37,25 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnRespo
     @Override
     public void onReceive(Context context, Intent intent) {
         if (contactRepository == null) {
-            App mApplication = ((App)context.getApplicationContext());
+            App mApplication = (App) context.getApplicationContext();
             contactRepository = new ContactRepository(mApplication);
         }
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             String toastText = String.format("Alarm Reboot");
             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             startRescheduleAlarmsService(context);
-        }
-        else {
+        } else {
             String toastText = String.format("Alarm Received");
             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
-            if (!intent.getBooleanExtra(RECURRING, false)) {
+            if (!intent.getBooleanExtra(RECURRING, false) || alarmIsToday(intent)) {
                 startAlarmService(context, intent);
-            } {
-                if (alarmIsToday(intent)) {
-                    startAlarmService(context, intent);
-                }
             }
         }
+    }
+
+    @Override
+    public void onTimeout() {
+        sendEmergencyMessageToAllContacts();
     }
 
     private boolean alarmIsToday(Intent intent) {
@@ -64,55 +64,36 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnRespo
         int today = calendar.get(Calendar.DAY_OF_WEEK);
 
         switch(today) {
-            case Calendar.MONDAY:
-                if (intent.getBooleanExtra(MONDAY, false))
-                    return true;
-                return false;
-            case Calendar.TUESDAY:
-                if (intent.getBooleanExtra(TUESDAY, false))
-                    return true;
-                return false;
-            case Calendar.WEDNESDAY:
-                if (intent.getBooleanExtra(WEDNESDAY, false))
-                    return true;
-                return false;
-            case Calendar.THURSDAY:
-                if (intent.getBooleanExtra(THURSDAY, false))
-                    return true;
-                return false;
-            case Calendar.FRIDAY:
-                if (intent.getBooleanExtra(FRIDAY, false))
-                    return true;
-                return false;
-            case Calendar.SATURDAY:
-                if (intent.getBooleanExtra(SATURDAY, false))
-                    return true;
-                return false;
-            case Calendar.SUNDAY:
-                if (intent.getBooleanExtra(SUNDAY, false))
-                    return true;
-                return false;
+            case Calendar.MONDAY: return intent.getBooleanExtra(MONDAY, false);
+            case Calendar.TUESDAY: return intent.getBooleanExtra(TUESDAY, false);
+            case Calendar.WEDNESDAY: return intent.getBooleanExtra(WEDNESDAY, false);
+            case Calendar.THURSDAY: return intent.getBooleanExtra(THURSDAY, false);
+            case Calendar.FRIDAY: return intent.getBooleanExtra(FRIDAY, false);
+            case Calendar.SATURDAY: return intent.getBooleanExtra(SATURDAY, false);
+            case Calendar.SUNDAY: return intent.getBooleanExtra(SUNDAY, false);
+            default: return false;
         }
-        return false;
     }
 
     private void startAlarmService(Context context, Intent intent) {
+        initEmergencyTimeout(context);
         Intent intentService = new Intent(context, AlarmService.class);
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE));
-
-        messageToSend = new EmergencyTextValueHolder(context).getMessageText();
-        EmergencyMessageSendingTimerService.addTimeoutListener(this);
-        EmergencyMessageSendingTimerService.startTimer(new SavedTimeoutValueHolder(context).getTimeoutInMilisec());
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intentService);
-        } else {
-            context.startService(intentService);
-        }
+        callServiceWithIntent(context, intentService);
     }
 
     private void startRescheduleAlarmsService(Context context) {
         Intent intentService = new Intent(context, RescheduleAlarmsService.class);
+        callServiceWithIntent(context, intentService);
+    }
+
+    private void initEmergencyTimeout(Context context) {
+        messageToSend = new EmergencyTextValueHolder(context).getMessageText();
+        EmergencyMessageSendingTimerService.addTimeoutListener(this);
+        EmergencyMessageSendingTimerService.startTimer(new SavedTimeoutValueHolder(context).getTimeoutInMilisec());
+    }
+
+    private void callServiceWithIntent(Context context, Intent intentService) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intentService);
         } else {
@@ -120,8 +101,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver implements OnRespo
         }
     }
 
-    @Override
-    public void onTimeout() {
+    private void sendEmergencyMessageToAllContacts() {
         SmsManager smsManager = SmsManager.getDefault();
         ArrayList<String> dividedParts = smsManager.divideMessage(messageToSend);
         for (Contact contact: contactRepository.getContacts()) {
