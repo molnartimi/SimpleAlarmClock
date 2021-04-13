@@ -26,6 +26,7 @@ public class EmergencyMessageSendingTimerService {
     public static void stopTimer() {
         if (responseTimer != null) {
             responseTimer.cancel();
+            responseTimer = null;
         }
     }
 
