@@ -18,7 +18,6 @@ import androidx.core.content.ContextCompat;
 import com.learntodroid.simplealarmclock.R;
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
 import com.learntodroid.simplealarmclock.service.AlarmService;
-import com.learntodroid.simplealarmclock.service.EmergencyMessageSendingTimerService;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -56,7 +55,6 @@ public class RingActivity extends AppCompatActivity {
         dismiss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EmergencyMessageSendingTimerService.stopTimer();
                 Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
                 getApplicationContext().stopService(intentService);
                 finish();
@@ -66,7 +64,6 @@ public class RingActivity extends AppCompatActivity {
         snooze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EmergencyMessageSendingTimerService.stopTimer();
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.add(Calendar.MINUTE, 10);

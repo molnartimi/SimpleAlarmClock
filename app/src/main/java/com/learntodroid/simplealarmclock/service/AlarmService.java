@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.os.Vibrator;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -36,8 +35,17 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Intent notificationIntent = new Intent(this, RingActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        if (intent.getAction() != null && intent.getAction().equals("ACTION_DISMISS")) {
+            stopSelf();
+        }
+        Intent startActivityIntent = new Intent(this, RingActivity.class);
+        startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, startActivityIntent, 0);
+
+        Intent dismissIntent = new Intent(this, AlarmService.class);
+        dismissIntent.setAction("ACTION_DISMISS");
+        PendingIntent dismissPendingIntent =
+                PendingIntent.getService(this, 0, dismissIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         String alarmTitle = String.format("%s Alarm", intent.getStringExtra(TITLE));
 
@@ -46,6 +54,11 @@ public class AlarmService extends Service {
                 .setContentText("Ring Ring .. Ring Ring")
                 .setSmallIcon(R.drawable.ic_alarm_black_24dp)
                 .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .addAction(new NotificationCompat.Action.Builder(
+                        R.drawable.ic_alarm_black_24dp,
+                        getString(R.string.dismiss),
+                        dismissPendingIntent).build())
                 .build();
 
         mediaPlayer.start();
@@ -62,6 +75,7 @@ public class AlarmService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
+        EmergencyMessageSendingTimerService.stopTimer();
         mediaPlayer.stop();
         vibrator.cancel();
     }

@@ -33,4 +33,6 @@
         Kérlek nézz rám, lehet, hogy rosszul vagyok!</string>
     <string name="emergency_timeout">Maximum tétlenség</string>
     <string name="minute">perc</string>
+    <string name="channel_name">Ébresztő</string>
+    <string name="channel_description">Ébresztések jelzése</string>
 </resources>
