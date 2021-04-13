@@ -53,8 +53,9 @@ public class AlarmService extends Service {
                 .setContentTitle(alarmTitle)
                 .setContentText("Ring Ring .. Ring Ring")
                 .setSmallIcon(R.drawable.ic_alarm_black_24dp)
-                .setContentIntent(pendingIntent)
+                .setFullScreenIntent(pendingIntent, true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .addAction(new NotificationCompat.Action.Builder(
                         R.drawable.ic_alarm_black_24dp,
                         getString(R.string.dismiss),
