@@ -167,7 +167,9 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
         Cursor cursor = null;
         try {
             Uri uri = data.getData();
-            cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+            assert uri != null;
+            cursor = requireActivity().getContentResolver().query(uri, null, null, null, null);
+            assert cursor != null;
             cursor.moveToFirst();
             int  phoneIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
             String phoneNo = cursor.getString(phoneIndex);

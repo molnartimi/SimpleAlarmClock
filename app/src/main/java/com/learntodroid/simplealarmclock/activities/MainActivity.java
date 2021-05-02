@@ -40,11 +40,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void askPermissionIfMissing() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             /* TODO user friendly explanation
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) { */
             ActivityCompat.requestPermissions(this,
-                    new String[]{ Manifest.permission.SEND_SMS },
+                    new String[]{ Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS },
                     MY_PERMISSIONS_REQUEST_SEND_SMS);
         }
     }
