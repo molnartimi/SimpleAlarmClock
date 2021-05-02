@@ -35,4 +35,7 @@
     <string name="minute">perc</string>
     <string name="channel_name">Ébresztő</string>
     <string name="channel_description">Ébresztések jelzése</string>
+    <string name="emergency_settings_message_text_title">Üzenet szövege</string>
+    <string name="emergency_settings_delay_time_title">SMS küldése megadott idő után</string>
+    <string name="emergency_settings_contact_list_category_title">Értesítendő személyek</string>
 </resources>

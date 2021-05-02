@@ -18,8 +18,11 @@
         android:id="@+id/contactsListFragment"
         android:name="com.learntodroid.simplealarmclock.contactslist.ContactsListFragment"
         android:label="fragment contacts"
-        tools:layout="@layout/fragment_listcontacts" >
-    </fragment>
+        tools:layout="@layout/fragment_listcontacts" />
+    <fragment
+        android:id="@+id/emergencySettingsFragment"
+        android:name="com.learntodroid.simplealarmclock.emergencysettings.EmergencySettings"
+        android:label="emergency settings"/>
     <fragment
         android:id="@+id/createAlarmFragment"
         android:name="com.learntodroid.simplealarmclock.createalarm.CreateAlarmFragment"
