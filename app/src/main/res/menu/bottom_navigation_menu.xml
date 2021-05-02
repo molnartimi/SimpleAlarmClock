@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_alarm_black_24dp"
         android:title="@string/bottom_menu_item_alarms"/>
     <item
-        android:id="@id/contactsListFragment"
+        android:id="@id/emergencySettingsFragment"
         android:enabled="true"
         android:icon="@drawable/ic_contact_mail_black_24dp"
         android:title="@string/bottom_menu_item_contacts"/>

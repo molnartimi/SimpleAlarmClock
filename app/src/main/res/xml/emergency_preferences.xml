@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditTextPreference
+        app:key="message_text"
+        app:title="@string/emergency_settings_message_text_title"
+        android:defaultValue="@string/default_emergency_message_text"
+        app:useSimpleSummaryProvider="true"
+        app:allowDividerBelow="true"/>
+
+    <ListPreference
+        app:key="delay_time"
+        app:title="@string/emergency_settings_delay_time_title"
+        android:entries="@array/delay_time_ui"
+        android:entryValues="@array/delay_time_values"
+        android:defaultValue="3"
+        app:useSimpleSummaryProvider="true"
+        app:allowDividerBelow="true"
+        app:allowDividerAbove="true"/>
+
+    <Preference
+        app:key="contact_list"
+        app:title="@string/emergency_settings_contact_list_category_title"
+        app:allowDividerAbove="true"/>
+
+</PreferenceScreen>
