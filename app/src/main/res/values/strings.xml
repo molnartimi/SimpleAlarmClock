@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Vészjelző Ébresztő</string>
     <string name="bottom_menu_item_alarms">Ébresztők</string>
-    <string name="bottom_menu_item_contacts">Vész üzenet</string>
+    <string name="bottom_menu_item_contacts">Segélykérés</string>
     <string name="schedule_alarm">Új ébresztő felvétele</string>
     <string name="alarm_time">Ébresztés ideje</string>
     <string name="alarm_title">Ébresztés neve (opcionális)</string>
