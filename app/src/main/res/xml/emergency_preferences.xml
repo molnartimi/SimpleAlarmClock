@@ -7,7 +7,8 @@
         app:title="@string/emergency_settings_message_text_title"
         android:defaultValue="@string/default_emergency_message_text"
         app:useSimpleSummaryProvider="true"
-        app:allowDividerBelow="true"/>
+        app:allowDividerBelow="true"
+        app:icon="@drawable/ic_round_message_24"/>
 
     <ListPreference
         app:key="delay_time"
@@ -17,11 +18,13 @@
         android:defaultValue="3"
         app:useSimpleSummaryProvider="true"
         app:allowDividerBelow="true"
-        app:allowDividerAbove="true"/>
+        app:allowDividerAbove="true"
+        app:icon="@drawable/ic_baseline_timer_24"/>
 
     <Preference
         app:key="contact_list"
         app:title="@string/emergency_settings_contact_list_category_title"
-        app:allowDividerAbove="true"/>
+        app:allowDividerAbove="true"
+        app:icon="@drawable/ic_baseline_group_24"/>
 
 </PreferenceScreen>
