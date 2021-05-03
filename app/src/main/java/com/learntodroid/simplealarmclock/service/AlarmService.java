@@ -42,8 +42,17 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Intent notificationIntent = new Intent(this, RingActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        if (intent.getAction() != null && intent.getAction().equals("ACTION_DISMISS")) {
+            stopSelf();
+        }
+        Intent startActivityIntent = new Intent(this, RingActivity.class);
+        startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, startActivityIntent, 0);
+
+        Intent dismissIntent = new Intent(this, AlarmService.class);
+        dismissIntent.setAction("ACTION_DISMISS");
+        PendingIntent dismissPendingIntent =
+                PendingIntent.getService(this, 0, dismissIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         String alarmTitle = String.format("%s Alarm", intent.getStringExtra(TITLE));
 
@@ -51,7 +60,13 @@ public class AlarmService extends Service {
                 .setContentTitle(alarmTitle)
                 .setContentText("Vészjelző Ébresztő")
                 .setSmallIcon(R.drawable.ic_alarm_black_24dp)
-                .setContentIntent(pendingIntent)
+                .setFullScreenIntent(pendingIntent, true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .addAction(new NotificationCompat.Action.Builder(
+                        R.drawable.ic_alarm_black_24dp,
+                        getString(R.string.dismiss),
+                        dismissPendingIntent).build())
                 .build();
 
         setMediaVolume(true);
@@ -84,6 +99,7 @@ public class AlarmService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
+        EmergencyMessageSendingTimerService.stopTimer();
         mediaPlayer.stop();
         vibrator.cancel();
         setMediaVolume(false);

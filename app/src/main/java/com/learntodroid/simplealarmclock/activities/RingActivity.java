@@ -27,24 +27,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RingActivity extends AppCompatActivity {
-    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =0 ;
     @BindView(R.id.activity_ring_dismiss) Button dismiss;
     @BindView(R.id.activity_ring_snooze) Button snooze;
     @BindView(R.id.activity_ring_clock) ImageView clock;
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // send();
-                } else {
-                    System.err.println("SMS failed");
-                }
-            }
-        }
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,24 +85,6 @@ public class RingActivity extends AppCompatActivity {
 
         animateClock();
     }
-
-    protected void sendSMSMessage() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.SEND_SMS)) {
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.SEND_SMS},
-                        MY_PERMISSIONS_REQUEST_SEND_SMS);
-            }
-        } else {
-            // send();
-        }
-    }
-
-
 
     private void animateClock() {
         ObjectAnimator rotateAnimation = ObjectAnimator.ofFloat(clock, "rotation", 0f, 20f, 0f, -20f, 0f);
