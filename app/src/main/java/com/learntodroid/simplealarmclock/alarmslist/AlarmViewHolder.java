@@ -1,73 +1,47 @@
 package com.learntodroid.simplealarmclock.alarmslist;
 
-import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
 import com.learntodroid.simplealarmclock.R;
+import com.learntodroid.simplealarmclock.databinding.ItemAlarmBinding;
 
 public class AlarmViewHolder extends RecyclerView.ViewHolder {
-    private TextView alarmTime;
-    private ImageView alarmRecurring;
-    private TextView alarmRecurringDays;
-    private TextView alarmTitle;
-    private Button alarmDeleteButton;
+    private final ItemAlarmBinding binding;
+    private final OnManageAlarmListener listener;
 
-    Switch alarmStarted;
-
-    private OnManageAlarmListener listener;
-
-    public AlarmViewHolder(@NonNull View itemView, OnManageAlarmListener listener) {
-        super(itemView);
-
-        alarmTime = itemView.findViewById(R.id.item_alarm_time);
-        alarmStarted = itemView.findViewById(R.id.item_alarm_started);
-        alarmRecurring = itemView.findViewById(R.id.item_alarm_recurring);
-        alarmRecurringDays = itemView.findViewById(R.id.item_alarm_recurringDays);
-        alarmTitle = itemView.findViewById(R.id.item_alarm_title);
-        alarmDeleteButton = itemView.findViewById(R.id.item_alarm_delete_button);
-
+    public AlarmViewHolder(ItemAlarmBinding binding, OnManageAlarmListener listener) {
+        super(binding.getRoot());
         this.listener = listener;
+        this.binding = binding;
     }
 
     public void bind(Alarm alarm) {
         String alarmText = String.format("%02d:%02d", alarm.getHour(), alarm.getMinute());
 
-        alarmTime.setText(alarmText);
-        alarmStarted.setChecked(alarm.isStarted());
+        binding.itemAlarmTime.setText(alarmText);
+        binding.itemAlarmStarted.setChecked(alarm.isStarted());
 
         if (alarm.isRecurring()) {
-            alarmRecurring.setImageResource(R.drawable.ic_repeat_black_24dp);
-            alarmRecurringDays.setText(alarm.getRecurringDaysText());
+            binding.itemAlarmRecurring.setImageResource(R.drawable.ic_repeat_black_24dp);
+            binding.itemAlarmRecurringDays.setText(alarm.getRecurringDaysText());
         } else {
-            alarmRecurring.setImageResource(R.drawable.ic_looks_one_black_24dp);
-            alarmRecurringDays.setText(R.string.once_off);
+            binding.itemAlarmRecurring.setImageResource(R.drawable.ic_looks_one_black_24dp);
+            binding.itemAlarmRecurringDays.setText(R.string.once_off);
         }
 
         if (alarm.getTitle().length() != 0) {
-            alarmTitle.setText(alarm.getTitle());
+            binding.itemAlarmTitle.setText(alarm.getTitle());
         } else {
-            alarmTitle.setText(R.string.default_alarm_title);
+            binding.itemAlarmTitle.setText(R.string.default_alarm_title);
         }
 
-        alarmStarted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                listener.onToggle(alarm);
-            }
-        });
+        binding.itemAlarmStarted.setOnCheckedChangeListener((buttonView, isChecked) -> listener.onToggle(alarm));
 
-        alarmDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onDelete(alarm);
-            }
-        });
+        binding.itemAlarmDeleteButton.setOnClickListener(v -> listener.onDelete(alarm));
+    }
+
+    public void onViewRecycled() {
+        binding.itemAlarmStarted.setOnCheckedChangeListener(null);
     }
 }

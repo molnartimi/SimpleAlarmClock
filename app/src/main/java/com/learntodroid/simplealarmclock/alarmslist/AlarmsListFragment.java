@@ -4,27 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
 import com.learntodroid.simplealarmclock.R;
-
-import java.util.List;
+import com.learntodroid.simplealarmclock.databinding.FragmentListalarmsBinding;
 
 public class AlarmsListFragment extends Fragment implements OnManageAlarmListener {
+    private FragmentListalarmsBinding binding;
+
     private AlarmRecyclerViewAdapter alarmRecyclerViewAdapter;
     private AlarmsListViewModel alarmsListViewModel;
-    private RecyclerView alarmsRecyclerView;
-    private Button addAlarm;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,12 +28,9 @@ public class AlarmsListFragment extends Fragment implements OnManageAlarmListene
 
         alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(this);
         alarmsListViewModel = ViewModelProviders.of(this).get(AlarmsListViewModel.class);
-        alarmsListViewModel.getAlarmsLiveData().observe(this, new Observer<List<Alarm>>() {
-            @Override
-            public void onChanged(List<Alarm> alarms) {
-                if (alarms != null) {
-                    alarmRecyclerViewAdapter.setAlarms(alarms);
-                }
+        alarmsListViewModel.getAlarmsLiveData().observe(this, alarms -> {
+            if (alarms != null) {
+                alarmRecyclerViewAdapter.setAlarms(alarms);
             }
         });
     }
@@ -45,37 +38,38 @@ public class AlarmsListFragment extends Fragment implements OnManageAlarmListene
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_listalarms, container, false);
+        binding = FragmentListalarmsBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        alarmsRecyclerView = view.findViewById(R.id.fragment_listalarms_recylerView);
-        alarmsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        alarmsRecyclerView.setAdapter(alarmRecyclerViewAdapter);
+        binding.fragmentListalarmsRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.fragmentListalarmsRecylerView.setAdapter(alarmRecyclerViewAdapter);
 
-        addAlarm = view.findViewById(R.id.fragment_listalarms_addAlarm);
-        addAlarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_alarmsListFragment_to_createAlarmFragment);
-            }
-        });
+        binding.fragmentListalarmsAddAlarm.setOnClickListener(
+                v -> Navigation.findNavController(v).navigate(R.id.action_alarmsListFragment_to_createAlarmFragment));
 
         return view;
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    @Override
     public void onToggle(Alarm alarm) {
         if (alarm.isStarted()) {
-            alarm.cancelAlarm(getContext());
+            alarm.cancelAlarm(requireContext());
             alarmsListViewModel.update(alarm);
         } else {
-            alarm.schedule(getContext());
+            alarm.schedule(requireContext());
             alarmsListViewModel.update(alarm);
         }
     }
 
     @Override
     public void onDelete(Alarm alarm) {
-        alarm.cancelAlarm(getContext());
+        alarm.cancelAlarm(requireContext());
         alarmsListViewModel.delete(alarm);
     }
 }

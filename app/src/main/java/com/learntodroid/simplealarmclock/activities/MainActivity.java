@@ -3,6 +3,7 @@ package com.learntodroid.simplealarmclock.activities;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,24 +12,22 @@ import androidx.core.content.ContextCompat;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.learntodroid.simplealarmclock.R;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.learntodroid.simplealarmclock.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
 
-    @BindView(R.id.bottom_navigation) BottomNavigationView bottomNavigationView;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        ButterKnife.bind(this);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         setupBottomNavigation();
         askPermissionIfMissing();
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupBottomNavigation() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.activity_main_nav_host_fragment);
-        NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
+        NavigationUI.setupWithNavController(binding.bottomNavigation, navHostFragment.getNavController());
     }
 
     private void askPermissionIfMissing() {

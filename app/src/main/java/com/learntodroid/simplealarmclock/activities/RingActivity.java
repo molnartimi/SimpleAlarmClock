@@ -1,48 +1,37 @@
 package com.learntodroid.simplealarmclock.activities;
 
-import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.learntodroid.simplealarmclock.R;
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
+import com.learntodroid.simplealarmclock.databinding.ActivityRingBinding;
 import com.learntodroid.simplealarmclock.service.AlarmService;
 
 import java.util.Calendar;
 import java.util.Random;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class RingActivity extends AppCompatActivity {
-    @BindView(R.id.activity_ring_dismiss) Button dismiss;
-    @BindView(R.id.activity_ring_snooze) Button snooze;
-    @BindView(R.id.activity_ring_clock) ImageView clock;
+    private ActivityRingBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ring);
-
-        ButterKnife.bind(this);
+        binding = ActivityRingBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        dismiss.setOnClickListener(new View.OnClickListener() {
+        binding.activityRingDismiss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
@@ -51,7 +40,7 @@ public class RingActivity extends AppCompatActivity {
             }
         });
 
-        snooze.setOnClickListener(new View.OnClickListener() {
+        binding.activityRingSnooze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
@@ -87,7 +76,7 @@ public class RingActivity extends AppCompatActivity {
     }
 
     private void animateClock() {
-        ObjectAnimator rotateAnimation = ObjectAnimator.ofFloat(clock, "rotation", 0f, 20f, 0f, -20f, 0f);
+        ObjectAnimator rotateAnimation = ObjectAnimator.ofFloat(binding.activityRingClock, "rotation", 0f, 20f, 0f, -20f, 0f);
         rotateAnimation.setRepeatCount(ValueAnimator.INFINITE);
         rotateAnimation.setDuration(800);
         rotateAnimation.start();

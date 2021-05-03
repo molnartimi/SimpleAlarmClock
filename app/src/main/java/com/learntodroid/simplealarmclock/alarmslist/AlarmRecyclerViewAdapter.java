@@ -1,32 +1,31 @@
 package com.learntodroid.simplealarmclock.alarmslist;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
-import com.learntodroid.simplealarmclock.R;
+import com.learntodroid.simplealarmclock.databinding.ItemAlarmBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
     private List<Alarm> alarms;
-    private OnManageAlarmListener listener;
+    private final OnManageAlarmListener listener;
 
     public AlarmRecyclerViewAdapter(OnManageAlarmListener listener) {
-        this.alarms = new ArrayList<Alarm>();
+        this.alarms = new ArrayList<>();
         this.listener = listener;
     }
 
     @NonNull
     @Override
     public AlarmViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_alarm, parent, false);
-        return new AlarmViewHolder(itemView, listener);
+        ItemAlarmBinding binding = ItemAlarmBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new AlarmViewHolder(binding, listener);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmViewHold
     @Override
     public void onViewRecycled(@NonNull AlarmViewHolder holder) {
         super.onViewRecycled(holder);
-        holder.alarmStarted.setOnCheckedChangeListener(null);
+        holder.onViewRecycled();
     }
 }
 
