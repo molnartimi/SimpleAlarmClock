@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="bottomNavigationBarColor">#FFFFFF</color>
     <color name="messageTextBackground">#ffff80</color>
+    <color name="lineSeparatorGray">#bfbfbf</color>
 </resources>

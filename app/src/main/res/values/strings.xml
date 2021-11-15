@@ -16,7 +16,8 @@
     <string name="save_alarm">Mentés</string>
     <string name="my_alarms">Beállított ébresztők</string>
     <string name="add_alarm">Új ébresztő</string>
-    <string name="emergency_message">Üzenet baj esetén</string>
+    <string name="emergency_message">Segélykérő üzenet</string>
+    <string name="edit_message_popup_title">Segélykérő üzenet módosítása</string>
     <string name="edit">Módosít</string>
     <string name="cancel">Mégse</string>
     <string name="save">Mentés</string>

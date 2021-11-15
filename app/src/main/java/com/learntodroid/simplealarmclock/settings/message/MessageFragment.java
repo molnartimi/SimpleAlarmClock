@@ -1,16 +1,18 @@
 package com.learntodroid.simplealarmclock.settings.message;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.learntodroid.simplealarmclock.R;
 import com.learntodroid.simplealarmclock.databinding.FragmentMessageBinding;
 import com.learntodroid.simplealarmclock.service.EmergencyTextValueHolder;
 
@@ -32,45 +34,35 @@ public class MessageFragment extends Fragment {
         View view = binding.getRoot();
 
         binding.savedMessage.setText(emergencyTextService.getMessageText());
-        binding.savedMessage.setOnClickListener(v -> setMessageTextEditable());
-        binding.saveBtn.setOnClickListener(v -> saveEditedText());
-        binding.cancleBtn.setOnClickListener(v -> cancelTextEditing());
+        binding.savedMessage.setOnClickListener(v -> showEditDialog());
 
         return view;
     }
 
-    private void saveEditedText() {
-        String newMessageText = binding.edittextMessage.getText().toString();
-        emergencyTextService.updateMessageText(newMessageText);
-        binding.savedMessage.setText(newMessageText);
-        toggleMessageTextView(false);
+    private void showEditDialog() {
+        final EditText editText = new EditText(getContext());
+        editText.setText(emergencyTextService.getMessageText());
+
+        FrameLayout container = new FrameLayout(getContext());
+        container.addView(editText);
+
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int margin = getResources().getDimensionPixelSize(R.dimen.dialog_margin);
+        params.setMargins(margin, 0, margin, 0);
+        editText.setLayoutParams(params);
+
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setTitle(R.string.edit_message_popup_title)
+                .setView(container)
+                .setPositiveButton(R.string.save, (d, w) -> saveMessage(String.valueOf(editText.getText())))
+                .setNegativeButton(R.string.cancel, null)
+                .create();
+        dialog.show();
     }
 
-    private void cancelTextEditing() {
-        toggleMessageTextView(false);
-    }
-
-    private void setMessageTextEditable() {
-        binding.edittextMessage.setText(emergencyTextService.getMessageText());
-        toggleMessageTextView(true);
-    }
-
-    private void toggleMessageTextView(boolean editable) {
-        int edit = editable ? View.VISIBLE : View.GONE;
-        int view = editable ? View.GONE : View.VISIBLE;
-
-        binding.savedMessage.setVisibility(view);
-
-        binding.edittextMessage.setVisibility(edit);
-        binding.saveBtn.setVisibility(edit);
-        binding.cancleBtn.setVisibility(edit);
-        if (!editable) {
-            hideKeyboard();
-        }
-    }
-
-    private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(binding.edittextMessage.getWindowToken(), 0);
+    private void saveMessage(String newMessage) {
+        emergencyTextService.updateMessageText(newMessage);
+        binding.savedMessage.setText(newMessage);
     }
 }
