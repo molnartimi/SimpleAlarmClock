@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.learntodroid.simplealarmclock.data.contact.Contact;
 import com.learntodroid.simplealarmclock.databinding.FragmentListcontactsBinding;
-import com.learntodroid.simplealarmclock.service.EmergencyTextValueHolder;
 import com.learntodroid.simplealarmclock.service.SavedTimeoutValueHolder;
 
 public class ContactsListFragment extends Fragment implements OnManageContactListener {
@@ -30,7 +29,6 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
     private FragmentListcontactsBinding binding;
     private ContactRecyclerViewAdapter contactRecyclerViewAdapter;
     private ContactsListViewModel contactsListViewModel;
-    private EmergencyTextValueHolder emergencyTextService;
     private SavedTimeoutValueHolder timeoutValueHolder;
 
     @Override
@@ -45,7 +43,6 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
             }
         });
 
-        emergencyTextService = new EmergencyTextValueHolder(requireContext());
         timeoutValueHolder = new SavedTimeoutValueHolder(requireContext());
     }
 
@@ -58,15 +55,7 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
         binding.fragmentListcontactsRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.fragmentListcontactsRecylerView.setAdapter(contactRecyclerViewAdapter);
 
-        binding.fragmentListcontactsMessageText.setText(emergencyTextService.getMessageText());
-
         binding.fragmentListcontactsAddContact.setOnClickListener(v -> openSystemContactList());
-
-        binding.fragmentListcontactsMessageText.setOnClickListener(v -> setMessageTextEditable());
-
-        binding.fragmentListcontactsSaveTextButton.setOnClickListener(v -> saveEditedText());
-
-        binding.fragmentListcontactsEditTextCancelButton.setOnClickListener(v -> cancelTextEditing());
 
         binding.fragmentListcontactsTimeout.setText(timeoutValueHolder.getTimeoutString());
         binding.fragmentListcontactsTimeout.setOnFocusChangeListener((v, hasFocus) -> toggleTimeoutView(hasFocus));
@@ -131,36 +120,6 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
             cursor.close();
         }
         return null;
-    }
-
-    private void saveEditedText() {
-        String newMessageText = binding.fragmentListcontactsMessageTextEdit.getText().toString();
-        emergencyTextService.updateMessageText(newMessageText);
-        binding.fragmentListcontactsMessageText.setText(newMessageText);
-        toggleMessageTextView(false);
-    }
-
-    private void cancelTextEditing() {
-        toggleMessageTextView(false);
-    }
-
-    private void setMessageTextEditable() {
-        binding.fragmentListcontactsMessageTextEdit.setText(emergencyTextService.getMessageText());
-        toggleMessageTextView(true);
-    }
-
-    private void toggleMessageTextView(boolean editable) {
-        int edit = editable ? View.VISIBLE : View.GONE;
-        int view = editable ? View.GONE : View.VISIBLE;
-
-        binding.fragmentListcontactsMessageText.setVisibility(view);
-
-        binding.fragmentListcontactsMessageTextEdit.setVisibility(edit);
-        binding.fragmentListcontactsSaveTextButton.setVisibility(edit);
-        binding.fragmentListcontactsEditTextCancelButton.setVisibility(edit);
-        if (!editable) {
-            hideKeyboard();
-        }
     }
 
     private void toggleTimeoutView(boolean editing) {
