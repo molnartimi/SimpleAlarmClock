@@ -20,7 +20,8 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +32,8 @@
         <activity android:name=".activities.RingActivity">
         </activity>
 
-        <receiver android:name=".broadcastreceiver.AlarmBroadcastReceiver">
+        <receiver android:name=".broadcastreceiver.AlarmBroadcastReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
