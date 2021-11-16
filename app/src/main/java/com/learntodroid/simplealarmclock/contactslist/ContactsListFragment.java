@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.learntodroid.simplealarmclock.data.contact.Contact;
 import com.learntodroid.simplealarmclock.databinding.FragmentListcontactsBinding;
-import com.learntodroid.simplealarmclock.service.SavedTimeoutValueHolder;
 
 public class ContactsListFragment extends Fragment implements OnManageContactListener {
     private static final int RESULT_PICK_CONTACT = 1;
@@ -29,7 +27,6 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
     private FragmentListcontactsBinding binding;
     private ContactRecyclerViewAdapter contactRecyclerViewAdapter;
     private ContactsListViewModel contactsListViewModel;
-    private SavedTimeoutValueHolder timeoutValueHolder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +40,7 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
             }
         });
 
-        timeoutValueHolder = new SavedTimeoutValueHolder(requireContext());
+
     }
 
     @Nullable
@@ -56,19 +53,6 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
         binding.fragmentListcontactsRecylerView.setAdapter(contactRecyclerViewAdapter);
 
         binding.fragmentListcontactsAddContact.setOnClickListener(v -> openSystemContactList());
-
-        binding.fragmentListcontactsTimeout.setText(timeoutValueHolder.getTimeoutString());
-        binding.fragmentListcontactsTimeout.setOnFocusChangeListener((v, hasFocus) -> toggleTimeoutView(hasFocus));
-
-        binding.fragmentListcontactsEditTimeoutCancelButton.setOnClickListener(v -> {
-            binding.fragmentListcontactsTimeout.setText(timeoutValueHolder.getTimeoutString());
-            toggleTimeoutView(false);
-        });
-
-        binding.fragmentListcontactsSaveTimeoutButton.setOnClickListener(v -> {
-            timeoutValueHolder.setTimeoutString(binding.fragmentListcontactsTimeout.getText().toString());
-            toggleTimeoutView(false);
-        });
 
         return view;
     }
@@ -120,21 +104,5 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
             cursor.close();
         }
         return null;
-    }
-
-    private void toggleTimeoutView(boolean editing) {
-        int edit = editing ? View.VISIBLE : View.GONE;
-
-        binding.fragmentListcontactsEditTimeoutCancelButton.setVisibility(edit);
-        binding.fragmentListcontactsSaveTimeoutButton.setVisibility(edit);
-        if (!editing) {
-            binding.fragmentListcontactsTimeout.clearFocus();
-            hideKeyboard();
-        }
-    }
-
-    private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(binding.fragmentListcontactsTimeout.getWindowToken(), 0);
     }
 }

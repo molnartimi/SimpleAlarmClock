@@ -5,103 +5,53 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <View style="@style/LineSeparator"
+        android:layout_marginTop="5dp"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/message_fragment"
+        android:name="com.learntodroid.simplealarmclock.settings.message.MessageFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="com.learntodroid.simplealarmclock.settings.message.MessageFragment"
-            android:id="@+id/message_fragment"
-            app:layout_constraintTop_toTopOf="parent" />
+    <View style="@style/LineSeparator"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fragment_listcontacts_timeout_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/message_fragment">
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/timer_fragment"
+        android:name="com.learntodroid.simplealarmclock.settings.timer.TimerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/fragment_listcontacts_timeoutLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="10dp"
-                android:text="@string/emergency_timeout"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintTop_toTopOf="parent" />
+    <View style="@style/LineSeparator"/>
 
-            <EditText
-                android:id="@+id/fragment_listcontacts_timeout"
-                android:layout_width="50dp"
-                android:gravity="end"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:text="3"
-                android:inputType="phone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_timeoutLabel" />
+    <TextView
+        android:id="@+id/fragment_listcontacts_myContacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        android:padding="10dp"
+        android:text="@string/my_contacts"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintTop_toBottomOf="@id/timer_fragment" />
 
-            <TextView
-                android:id="@+id/fragment_listcontacts_timeout_measure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="5dp"
-                android:text="@string/minute"
-                app:layout_constraintBottom_toBottomOf="@id/fragment_listcontacts_timeout"
-                app:layout_constraintStart_toEndOf="@id/fragment_listcontacts_timeout"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_listcontacts_recylerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_listcontacts_myContacts">
 
-            <Button
-                android:id="@+id/fragment_listcontacts_editTimeoutCancel_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel"
-                android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@id/fragment_listcontacts_saveTimeout_button"
-                app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_timeoutLabel"/>
+    </androidx.recyclerview.widget.RecyclerView>
 
-            <Button
-                android:id="@+id/fragment_listcontacts_saveTimeout_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/save"
-                android:visibility="gone"
-                android:layout_marginRight="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_timeoutLabel"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/fragment_listcontacts_myContacts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:text="@string/my_contacts"
-            android:padding="10dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintTop_toBottomOf="@id/fragment_listcontacts_timeout_container" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_listcontacts_recylerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_listcontacts_myContacts">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <Button
-            android:id="@+id/fragment_listcontacts_addContact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="@string/add_contact"
-            android:padding="20dp"
-            android:layout_margin="30dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/fragment_listcontacts_addContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="30dp"
+        android:padding="20dp"
+        android:text="@string/add_contact"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </LinearLayout>

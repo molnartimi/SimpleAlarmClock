@@ -12,6 +12,10 @@ public class SavedTimeoutValueHolder extends ValueHolderBase {
         return getValue();
     }
 
+    public int getTimeoutInt() {
+        return Integer.parseInt(getTimeoutString());
+    }
+
     public int getTimeoutInMilisec() {
         return Integer.parseInt(getValue()) * 60 * 1000;
     }

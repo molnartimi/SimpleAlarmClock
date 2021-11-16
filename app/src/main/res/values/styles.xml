@@ -8,4 +8,36 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SettingTitle" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginEnd">7dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+
+    <style name="SettingDescription" parent="@style/TextAppearance.AppCompat.Small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">sans-serif-light</item>
+        <item name="android:paddingStart">25dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingEnd">25dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?android:selectableItemBackground</item>
+    </style>
+
+    <style name="LineSeparator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/lineSeparatorGray</item>
+    </style>
+
 </resources>
