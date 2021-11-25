@@ -1,4 +1,4 @@
-package com.learntodroid.simplealarmclock.contactslist;
+package com.learntodroid.simplealarmclock.settings.contactlist;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

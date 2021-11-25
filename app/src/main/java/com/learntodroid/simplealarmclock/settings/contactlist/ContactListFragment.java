@@ -1,4 +1,4 @@
-package com.learntodroid.simplealarmclock.contactslist;
+package com.learntodroid.simplealarmclock.settings.contactlist;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,48 +18,46 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.learntodroid.simplealarmclock.data.contact.Contact;
-import com.learntodroid.simplealarmclock.databinding.FragmentListcontactsBinding;
+import com.learntodroid.simplealarmclock.databinding.FragmentContactlistBinding;
 
-public class ContactsListFragment extends Fragment implements OnManageContactListener {
+public class ContactListFragment extends Fragment implements OnManageContactListener {
     private static final int RESULT_PICK_CONTACT = 1;
     private static final String TAG = "ContactListFragment";
 
-    private FragmentListcontactsBinding binding;
+    private FragmentContactlistBinding binding;
     private ContactRecyclerViewAdapter contactRecyclerViewAdapter;
-    private ContactsListViewModel contactsListViewModel;
+    private ContactListViewModel contactListViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         contactRecyclerViewAdapter = new ContactRecyclerViewAdapter(this);
-        contactsListViewModel = ViewModelProviders.of(this).get(ContactsListViewModel.class);
-        contactsListViewModel.getContactsLiveData().observe(this, contacts -> {
+        contactListViewModel = ViewModelProviders.of(this).get(ContactListViewModel.class);
+        contactListViewModel.getContactsLiveData().observe(this, contacts -> {
             if (contacts != null) {
                 contactRecyclerViewAdapter.setContacts(contacts);
             }
         });
-
-
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentListcontactsBinding.inflate(inflater, container, false);
+        binding = FragmentContactlistBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        binding.fragmentListcontactsRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.fragmentListcontactsRecylerView.setAdapter(contactRecyclerViewAdapter);
+        binding.contactListRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.contactListRecycleView.setAdapter(contactRecyclerViewAdapter);
 
-        binding.fragmentListcontactsAddContact.setOnClickListener(v -> openSystemContactList());
+        binding.addContactBtn.setOnClickListener(v -> openSystemContactList());
 
         return view;
     }
 
     @Override
     public void onDelete(Contact contact) {
-        contactsListViewModel.delete(contact);
+        contactListViewModel.delete(contact);
     }
 
     @Override
@@ -68,7 +66,7 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
             switch (requestCode) {
                 case RESULT_PICK_CONTACT:
                     Contact contact = readSelectedContact(data);
-                    contactsListViewModel.insert(contact);
+                    contactListViewModel.insert(contact);
                     break;
                 default:
                     Log.e(TAG, "Unexpected value: " + requestCode);
@@ -105,4 +103,5 @@ public class ContactsListFragment extends Fragment implements OnManageContactLis
         }
         return null;
     }
+
 }

@@ -21,8 +21,9 @@
     <string name="edit">Módosít</string>
     <string name="cancel">Mégse</string>
     <string name="save">Mentés</string>
+    <string name="delete">Törlés</string>
     <string name="my_contacts">Értesítendő személyek</string>
-    <string name="add_contact">Új személy</string>
+    <string name="add_contact">Új személy hozzáadása</string>
     <string name="once_off">Egyszeri</string>
     <string name="default_alarm_title">Ébresztő</string>
     <string name="ring_ring">Vészjelző Ébresztő</string>
@@ -36,4 +37,7 @@
     <string name="minute">perc</string>
     <string name="channel_name">Ébresztő</string>
     <string name="channel_description">Ébresztések jelzése</string>
+    <string name="edit_contact_list">Lista módosítása</string>
+    <string name="delete_contact_confirmation_title_part">törlése</string>
+    <string name="delete_contact_confirmation_message">Törlöd a személyt az értesítendő személyek listájáról?</string>
 </resources>

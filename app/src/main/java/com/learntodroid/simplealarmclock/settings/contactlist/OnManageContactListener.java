@@ -1,4 +1,4 @@
-package com.learntodroid.simplealarmclock.contactslist;
+package com.learntodroid.simplealarmclock.settings.contactlist;
 
 import com.learntodroid.simplealarmclock.data.contact.Contact;
 

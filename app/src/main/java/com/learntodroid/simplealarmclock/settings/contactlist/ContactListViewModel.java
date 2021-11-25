@@ -1,4 +1,4 @@
-package com.learntodroid.simplealarmclock.contactslist;
+package com.learntodroid.simplealarmclock.settings.contactlist;
 
 import android.app.Application;
 
@@ -11,11 +11,11 @@ import com.learntodroid.simplealarmclock.data.contact.ContactRepository;
 
 import java.util.List;
 
-public class ContactsListViewModel extends AndroidViewModel {
+public class ContactListViewModel extends AndroidViewModel {
     private ContactRepository contactRepository;
     private LiveData<List<Contact>> contactsLiveData;
 
-    public ContactsListViewModel(@NonNull Application application) {
+    public ContactListViewModel(@NonNull Application application) {
         super(application);
 
         contactRepository = new ContactRepository(application);

@@ -16,9 +16,9 @@
     </fragment>
     <fragment
         android:id="@+id/contactsListFragment"
-        android:name="com.learntodroid.simplealarmclock.contactslist.ContactsListFragment"
+        android:name="com.learntodroid.simplealarmclock.settings.SettingsFragment"
         android:label="fragment contacts"
-        tools:layout="@layout/fragment_listcontacts" >
+        tools:layout="@layout/fragment_settings" >
     </fragment>
     <fragment
         android:id="@+id/createAlarmFragment"
