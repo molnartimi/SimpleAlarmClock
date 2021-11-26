@@ -5,7 +5,7 @@
     <string name="schedule_alarm">Új ébresztő felvétele</string>
     <string name="alarm_time">Ébresztés ideje</string>
     <string name="alarm_title">Ébresztés neve (opcionális)</string>
-    <string name="recurring_alarm">Ismétlődő ébresztő</string>
+    <string name="recurring_alarm">Ismétlődik</string>
     <string name="mon">H</string>
     <string name="tue">K</string>
     <string name="wed">Sz</string>

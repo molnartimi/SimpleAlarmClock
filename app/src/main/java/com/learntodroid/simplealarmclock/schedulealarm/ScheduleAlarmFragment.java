@@ -32,20 +32,24 @@ public class ScheduleAlarmFragment extends Fragment {
         binding = FragmentSchedulealarmBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        binding.fragmentCreatealarmRecurring.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        binding.timePicker.setIs24HourView(true);
+        TimePickerUtil.setTimePickerHour(binding.timePicker, 7);
+        TimePickerUtil.setTimePickerMinute(binding.timePicker, 0);
+
+        binding.isNewAlarmRecurring.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                binding.fragmentCreatealarmRecurringOptions.setVisibility(View.VISIBLE);
+                binding.weekDaysHolder.setVisibility(View.VISIBLE);
             } else {
-                binding.fragmentCreatealarmRecurringOptions.setVisibility(View.GONE);
+                binding.weekDaysHolder.setVisibility(View.GONE);
             }
         });
 
-        binding.fragmentCreatealarmScheduleAlarm.setOnClickListener(v -> {
+        binding.saveScheduleAlarmBtn.setOnClickListener(v -> {
             scheduleAlarm();
             getActivity().finish();
         });
 
-        binding.fragmentCreatealarmCancelButton.setOnClickListener(v -> getActivity().finish());
+        binding.cancelScheduleAlarmBtn.setOnClickListener(v -> getActivity().finish());
 
         return view;
     }
@@ -55,19 +59,19 @@ public class ScheduleAlarmFragment extends Fragment {
 
         Alarm alarm = new Alarm(
                 alarmId,
-                TimePickerUtil.getTimePickerHour(binding.fragmentCreatealarmTimePicker),
-                TimePickerUtil.getTimePickerMinute(binding.fragmentCreatealarmTimePicker),
-                binding.fragmentCreatealarmTitle.getText().toString(),
+                TimePickerUtil.getTimePickerHour(binding.timePicker),
+                TimePickerUtil.getTimePickerMinute(binding.timePicker),
+                binding.newAlarmName.getText().toString(),
                 System.currentTimeMillis(),
                 true,
-                binding.fragmentCreatealarmRecurring.isChecked(),
-                binding.fragmentCreatealarmCheckMon.isChecked(),
-                binding.fragmentCreatealarmCheckTue.isChecked(),
-                binding.fragmentCreatealarmCheckWed.isChecked(),
-                binding.fragmentCreatealarmCheckThu.isChecked(),
-                binding.fragmentCreatealarmCheckFri.isChecked(),
-                binding.fragmentCreatealarmCheckSat.isChecked(),
-                binding.fragmentCreatealarmCheckSun.isChecked()
+                binding.isNewAlarmRecurring.isChecked(),
+                binding.onMon.isChecked(),
+                binding.onTue.isChecked(),
+                binding.onWed.isChecked(),
+                binding.onThu.isChecked(),
+                binding.onFri.isChecked(),
+                binding.onSat.isChecked(),
+                binding.onSun.isChecked()
         );
 
         createAlarmViewModel.insert(alarm);

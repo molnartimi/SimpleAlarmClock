@@ -19,4 +19,20 @@ public final class TimePickerUtil {
             return tp.getCurrentMinute();
         }
     }
+
+    public static void setTimePickerHour(TimePicker tp, int hour) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            tp.setHour(hour);
+        } else {
+            tp.setCurrentHour(hour);
+        }
+    }
+
+    public static void setTimePickerMinute(TimePicker tp, int minute) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            tp.setMinute(minute);
+        } else {
+            tp.setCurrentMinute(minute);
+        }
+    }
 }
