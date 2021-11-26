@@ -29,6 +29,7 @@
         <entry key="app/src/main/res/layout/fragment_timer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_alarm.xml" value="0.1671195652173913" />
         <entry key="app/src/main/res/layout/item_contact.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/xml/emergency_preferences.xml" value="0.14114583333333333" />
       </map>
     </option>
