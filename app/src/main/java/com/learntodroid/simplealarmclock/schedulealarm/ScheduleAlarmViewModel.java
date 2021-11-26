@@ -1,4 +1,4 @@
-package com.learntodroid.simplealarmclock.createalarm;
+package com.learntodroid.simplealarmclock.schedulealarm;
 
 import android.app.Application;
 
@@ -8,10 +8,10 @@ import androidx.lifecycle.AndroidViewModel;
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
 import com.learntodroid.simplealarmclock.data.alarm.AlarmRepository;
 
-public class CreateAlarmViewModel extends AndroidViewModel {
+public class ScheduleAlarmViewModel extends AndroidViewModel {
     private AlarmRepository alarmRepository;
 
-    public CreateAlarmViewModel(@NonNull Application application) {
+    public ScheduleAlarmViewModel(@NonNull Application application) {
         super(application);
 
         alarmRepository = new AlarmRepository(application);

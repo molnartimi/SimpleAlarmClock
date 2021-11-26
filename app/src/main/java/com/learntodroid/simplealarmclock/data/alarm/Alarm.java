@@ -12,7 +12,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.learntodroid.simplealarmclock.broadcastreceiver.AlarmBroadcastReceiver;
-import com.learntodroid.simplealarmclock.createalarm.DayUtil;
 
 import java.util.Calendar;
 

@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/createAlarmFragment"
-        android:name="com.learntodroid.simplealarmclock.createalarm.CreateAlarmFragment"
+        android:name="com.learntodroid.simplealarmclock.schedulealarm.ScheduleAlarmFragment"
         android:label="CreateAlarmFragment" >
         <action
             android:id="@+id/action_createAlarmFragment_to_alarmsListFragment"

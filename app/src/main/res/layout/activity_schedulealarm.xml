@@ -6,7 +6,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.learntodroid.simplealarmclock.createalarm.CreateAlarmFragment"
+        android:name="com.learntodroid.simplealarmclock.schedulealarm.ScheduleAlarmFragment"
         android:id="@+id/create_alarm_fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

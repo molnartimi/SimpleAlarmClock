@@ -1,4 +1,4 @@
-package com.learntodroid.simplealarmclock.createalarm;
+package com.learntodroid.simplealarmclock.schedulealarm;
 
 import android.os.Build;
 import android.widget.TimePicker;

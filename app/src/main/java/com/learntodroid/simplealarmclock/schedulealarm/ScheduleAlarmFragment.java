@@ -1,4 +1,4 @@
-package com.learntodroid.simplealarmclock.createalarm;
+package com.learntodroid.simplealarmclock.schedulealarm;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,25 +11,25 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
-import com.learntodroid.simplealarmclock.databinding.FragmentCreatealarmBinding;
+import com.learntodroid.simplealarmclock.databinding.FragmentSchedulealarmBinding;
 
 import java.util.Random;
 
-public class CreateAlarmFragment extends Fragment {
-    private FragmentCreatealarmBinding binding;
-    private CreateAlarmViewModel createAlarmViewModel;
+public class ScheduleAlarmFragment extends Fragment {
+    private FragmentSchedulealarmBinding binding;
+    private ScheduleAlarmViewModel createAlarmViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        createAlarmViewModel = ViewModelProviders.of(this).get(CreateAlarmViewModel.class);
+        createAlarmViewModel = ViewModelProviders.of(this).get(ScheduleAlarmViewModel.class);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentCreatealarmBinding.inflate(inflater, container, false);
+        binding = FragmentSchedulealarmBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         binding.fragmentCreatealarmRecurring.setOnCheckedChangeListener((buttonView, isChecked) -> {
