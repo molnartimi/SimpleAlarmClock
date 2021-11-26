@@ -9,9 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
-import com.learntodroid.simplealarmclock.R;
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
 import com.learntodroid.simplealarmclock.databinding.FragmentCreatealarmBinding;
 
@@ -44,11 +42,10 @@ public class CreateAlarmFragment extends Fragment {
 
         binding.fragmentCreatealarmScheduleAlarm.setOnClickListener(v -> {
             scheduleAlarm();
-            Navigation.findNavController(v).navigate(R.id.action_createAlarmFragment_to_alarmsListFragment);
+            getActivity().finish();
         });
 
-        binding.fragmentCreatealarmCancelButton.setOnClickListener(
-                v -> Navigation.findNavController(v).navigate(R.id.action_createAlarmFragment_to_alarmsListFragment));
+        binding.fragmentCreatealarmCancelButton.setOnClickListener(v -> getActivity().finish());
 
         return view;
     }

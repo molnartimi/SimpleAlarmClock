@@ -32,6 +32,8 @@
         <activity android:name=".activities.RingActivity">
         </activity>
 
+        <activity android:name=".activities.ScheduleAlarmActivity"></activity>
+
         <receiver android:name=".broadcastreceiver.AlarmBroadcastReceiver"
             android:exported="true">
             <intent-filter>

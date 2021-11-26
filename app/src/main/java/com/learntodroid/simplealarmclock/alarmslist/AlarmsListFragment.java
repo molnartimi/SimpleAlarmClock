@@ -1,5 +1,6 @@
 package com.learntodroid.simplealarmclock.alarmslist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.learntodroid.simplealarmclock.activities.ScheduleAlarmActivity;
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
-import com.learntodroid.simplealarmclock.R;
 import com.learntodroid.simplealarmclock.databinding.FragmentListalarmsBinding;
 
 public class AlarmsListFragment extends Fragment implements OnManageAlarmListener {
@@ -44,10 +44,13 @@ public class AlarmsListFragment extends Fragment implements OnManageAlarmListene
         binding.fragmentListalarmsRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.fragmentListalarmsRecylerView.setAdapter(alarmRecyclerViewAdapter);
 
-        binding.fragmentListalarmsAddAlarm.setOnClickListener(
-                v -> Navigation.findNavController(v).navigate(R.id.action_alarmsListFragment_to_createAlarmFragment));
+        binding.fragmentListalarmsAddAlarm.setOnClickListener(v -> startScheduleAlarmActivity());
 
         return view;
+    }
+
+    private void startScheduleAlarmActivity() {
+        startActivity(new Intent(getContext(), ScheduleAlarmActivity.class));
     }
 
     @Override
