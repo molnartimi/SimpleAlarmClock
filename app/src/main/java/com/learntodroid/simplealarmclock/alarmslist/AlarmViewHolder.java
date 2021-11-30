@@ -1,5 +1,7 @@
 package com.learntodroid.simplealarmclock.alarmslist;
 
+import android.view.View;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
@@ -24,23 +26,21 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
         binding.itemAlarmTime.setText(alarmText);
         binding.itemAlarmStarted.setChecked(alarm.isStarted());
 
-        if (alarm.isRecurring()) {
-            binding.itemAlarmRecurring.setImageResource(R.drawable.ic_repeat_black_24dp);
-            binding.itemAlarmRecurringDays.setText(alarm.getRecurringDaysText());
-        } else {
-            binding.itemAlarmRecurring.setImageResource(R.drawable.ic_looks_one_black_24dp);
-            binding.itemAlarmRecurringDays.setText(R.string.once_off);
-        }
-
         if (alarm.getTitle().length() != 0) {
             binding.itemAlarmTitle.setText(alarm.getTitle());
         } else {
-            binding.itemAlarmTitle.setText(R.string.default_alarm_title);
+            binding.itemAlarmTitle.setVisibility(View.GONE);
         }
+
+        binding.itemAlarmRecurringDays.setText(alarm.isRecurring()
+                ? alarm.forAllDay()
+                    ? "Minden nap"
+                    : "Néhány napon ismétlődő"
+                : "Holnap");
 
         binding.itemAlarmStarted.setOnCheckedChangeListener((buttonView, isChecked) -> listener.onToggle(alarm));
 
-        binding.itemAlarmDeleteButton.setOnClickListener(v -> listener.onDelete(alarm));
+        //binding.itemAlarmDeleteButton.setOnClickListener(v -> listener.onDelete(alarm));
     }
 
     public void onViewRecycled() {

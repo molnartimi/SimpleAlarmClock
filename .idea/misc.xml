@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/activity_createalarm.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/activity_ring.xml" value="0.27853260869565216" />
+        <entry key="app/src/main/res/layout/activity_schedulealarm.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/fragment_contactlist.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_createalarm.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_listalarms.xml" value="0.19635416666666666" />
@@ -27,7 +28,7 @@
         <entry key="app/src/main/res/layout/fragment_schedulealarm.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/layout/fragment_timer.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/item_alarm.xml" value="0.1671195652173913" />
+        <entry key="app/src/main/res/layout/item_alarm.xml" value="0.375" />
         <entry key="app/src/main/res/layout/item_contact.xml" value="0.25" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/xml/emergency_preferences.xml" value="0.14114583333333333" />

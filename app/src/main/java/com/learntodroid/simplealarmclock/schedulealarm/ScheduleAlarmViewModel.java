@@ -28,10 +28,10 @@ public class ScheduleAlarmViewModel extends AndroidViewModel {
         alarm.setHour(hour);
         alarm.setMinute(minute);
         alarm.setTitle(title);
+        alarm.setStarted(true);
         if (isNewAlarm) {
             alarmRepository.insert(alarm);
         } else {
-            alarm.setStarted(true);
             alarmRepository.update(alarm);
         }
         return alarm;

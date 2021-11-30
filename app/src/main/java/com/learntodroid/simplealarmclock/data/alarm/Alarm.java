@@ -178,23 +178,12 @@ public class Alarm {
         }
 
         if (!recurring) {
-            String toastText = null;
-            try {
-                toastText = String.format("Egyszeri ébresztő %s mentve %02d:%02d időpontra", title, hour, minute, alarmId);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
-
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
                     alarmPendingIntent
             );
         } else {
-            String toastText = String.format("Ismétlődő ébresztő %s mentve %s napokra %02d:%02d időpontban", title, getRecurringDaysText(), hour, minute, alarmId);
-            Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
-
             final long RUN_DAILY = 24 * 60 * 60 * 1000;
             alarmManager.setRepeating(
                     AlarmManager.RTC_WAKEUP,
@@ -213,42 +202,10 @@ public class Alarm {
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0);
         alarmManager.cancel(alarmPendingIntent);
         this.started = false;
-
-        String toastText = String.format("Ébresztő kikapcsolva %02d:%02d időpontra", hour, minute, alarmId);
-        Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
-        Log.i("cancel", toastText);
     }
 
-    public String getRecurringDaysText() {
-        if (!recurring) {
-            return null;
-        }
-
-        // TODO string resources
-        String days = "";
-        if (monday) {
-            days += "Hé ";
-        }
-        if (tuesday) {
-            days += "Ke ";
-        }
-        if (wednesday) {
-            days += "Sze ";
-        }
-        if (thursday) {
-            days += "Cs ";
-        }
-        if (friday) {
-            days += "Pé ";
-        }
-        if (saturday) {
-            days += "Szo ";
-        }
-        if (sunday) {
-            days += "Va ";
-        }
-
-        return days;
+    public boolean forAllDay() {
+        return monday && tuesday && wednesday && thursday && friday && saturday && sunday;
     }
 
     public String getTitle() {
