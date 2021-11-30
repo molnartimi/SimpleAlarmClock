@@ -19,6 +19,8 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder {
     public void bind(Alarm alarm) {
         String alarmText = String.format("%02d:%02d", alarm.getHour(), alarm.getMinute());
 
+        binding.alarmItem.setOnClickListener(v -> listener.onEdit(alarm));
+
         binding.itemAlarmTime.setText(alarmText);
         binding.itemAlarmStarted.setChecked(alarm.isStarted());
 

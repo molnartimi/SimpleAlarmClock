@@ -35,4 +35,8 @@ public class AlarmRepository {
             alarmDao.delete(alarm);
         });
     }
+
+    public LiveData<Alarm> getAlarm(int id) {
+        return alarmDao.getAlarm(id);
+    }
 }

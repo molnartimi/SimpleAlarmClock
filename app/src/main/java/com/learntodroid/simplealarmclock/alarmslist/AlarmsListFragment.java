@@ -53,6 +53,12 @@ public class AlarmsListFragment extends Fragment implements OnManageAlarmListene
         startActivity(new Intent(getContext(), ScheduleAlarmActivity.class));
     }
 
+    private void startScheduleAlarmActivity(Alarm alarm) {
+        Intent intent = new Intent(getContext(), ScheduleAlarmActivity.class);
+        intent.putExtra("alarmId", alarm.getAlarmId());
+        startActivity(intent);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -74,5 +80,10 @@ public class AlarmsListFragment extends Fragment implements OnManageAlarmListene
     public void onDelete(Alarm alarm) {
         alarm.cancelAlarm(requireContext());
         alarmsListViewModel.delete(alarm);
+    }
+
+    @Override
+    public void onEdit(Alarm alarm) {
+        startScheduleAlarmActivity(alarm);
     }
 }

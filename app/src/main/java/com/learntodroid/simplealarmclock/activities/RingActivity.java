@@ -43,7 +43,7 @@ public class RingActivity extends AppCompatActivity {
         binding.activityRingSnooze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
+                /* Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.add(Calendar.MINUTE, 10);
 
@@ -68,7 +68,7 @@ public class RingActivity extends AppCompatActivity {
 
                 Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
                 getApplicationContext().stopService(intentService);
-                finish();
+                finish(); */
             }
         });
 
