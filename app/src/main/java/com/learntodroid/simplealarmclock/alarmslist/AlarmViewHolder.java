@@ -42,6 +42,7 @@ public class AlarmViewHolder extends RecyclerView.ViewHolder implements Observer
 
         if (alarm.getTitle().length() != 0) {
             binding.itemAlarmTitle.setText(alarm.getTitle());
+            binding.itemAlarmTitle.setVisibility(View.VISIBLE);
         } else {
             binding.itemAlarmTitle.setVisibility(View.GONE);
         }
