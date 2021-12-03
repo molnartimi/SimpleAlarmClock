@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
 import com.learntodroid.simplealarmclock.databinding.ItemAlarmBinding;
+import com.learntodroid.simplealarmclock.common.ListItemSelectionHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,12 @@ import java.util.List;
 public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmViewHolder> {
     private List<Alarm> alarms;
     private final OnManageAlarmListener listener;
+    private final ListItemSelectionHandler<Alarm> selectionHandler;
 
-    public AlarmRecyclerViewAdapter(OnManageAlarmListener listener) {
+    public AlarmRecyclerViewAdapter(OnManageAlarmListener listener, ListItemSelectionHandler<Alarm> selectionHandler) {
         this.alarms = new ArrayList<>();
         this.listener = listener;
+        this.selectionHandler = selectionHandler;
     }
 
     @NonNull
@@ -31,7 +34,7 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmViewHold
     @Override
     public void onBindViewHolder(@NonNull AlarmViewHolder holder, int position) {
         Alarm alarm = alarms.get(position);
-        holder.bind(alarm);
+        holder.bind(alarm, selectionHandler);
     }
 
     @Override

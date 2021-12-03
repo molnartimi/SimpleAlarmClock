@@ -17,18 +17,14 @@
             android:text="@string/my_contacts"
             android:layout_width="0dp"
             android:layout_weight="0.9"
-            app:drawableStartCompat="@drawable/ic_baseline_group_24" />
+            app:drawableStartCompat="@drawable/ic_baseline_person_24" />
 
         <ImageButton
             android:id="@+id/add_contact_btn"
+            style="@style/CornerImageButton"
             android:layout_width="0dp"
             android:layout_weight="0.1"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:padding="5dp"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/ic_baseline_person_add_24"
-            android:background="?android:attr/actionBarItemBackground"/>
+            android:src="@drawable/ic_baseline_person_add_24"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

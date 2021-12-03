@@ -13,20 +13,27 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.learntodroid.simplealarmclock.activities.ScheduleAlarmActivity;
+import com.learntodroid.simplealarmclock.common.ListItemSelectionHandler;
 import com.learntodroid.simplealarmclock.data.alarm.Alarm;
 import com.learntodroid.simplealarmclock.databinding.FragmentListalarmsBinding;
 
-public class AlarmsListFragment extends Fragment implements OnManageAlarmListener {
+import java.util.Observable;
+import java.util.Observer;
+
+public class AlarmsListFragment extends Fragment implements OnManageAlarmListener, Observer {
     private FragmentListalarmsBinding binding;
 
     private AlarmRecyclerViewAdapter alarmRecyclerViewAdapter;
     private AlarmsListViewModel alarmsListViewModel;
+    private ListItemSelectionHandler<Alarm> selectionHandler;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(this);
+        selectionHandler = new ListItemSelectionHandler<>();
+        selectionHandler.addObserver(this);
+        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(this, selectionHandler);
         alarmsListViewModel = ViewModelProviders.of(this).get(AlarmsListViewModel.class);
         alarmsListViewModel.getAlarmsLiveData().observe(this, alarms -> {
             if (alarms != null) {
@@ -44,7 +51,12 @@ public class AlarmsListFragment extends Fragment implements OnManageAlarmListene
         binding.fragmentListalarmsRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.fragmentListalarmsRecylerView.setAdapter(alarmRecyclerViewAdapter);
 
-        binding.fragmentListalarmsAddAlarm.setOnClickListener(v -> startScheduleAlarmActivity());
+        binding.createAlarmBtn.setOnClickListener(v -> startScheduleAlarmActivity());
+        binding.removeSelectedAlarmsBtn.setOnClickListener(v -> {
+            selectionHandler.setSelectable(false);
+            deleteSelectedAlarms();
+            selectionHandler.clear();
+        });
 
         return view;
     }
@@ -76,14 +88,22 @@ public class AlarmsListFragment extends Fragment implements OnManageAlarmListene
         }
     }
 
-    @Override
-    public void onDelete(Alarm alarm) {
-        alarm.cancelAlarm(requireContext());
-        alarmsListViewModel.delete(alarm);
+    public void deleteSelectedAlarms() {
+        for (Alarm alarm: selectionHandler.getSelectedItems()) {
+            alarm.cancelAlarm(requireContext());
+            alarmsListViewModel.delete(alarm);
+        }
     }
 
     @Override
     public void onEdit(Alarm alarm) {
         startScheduleAlarmActivity(alarm);
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        Boolean selectableMode = (Boolean) o;
+        binding.removeSelectedAlarmsBtn.setVisibility(selectableMode ? View.VISIBLE : View.GONE);
+        binding.createAlarmBtn.setVisibility(selectableMode ? View.GONE : View.VISIBLE);
     }
 }

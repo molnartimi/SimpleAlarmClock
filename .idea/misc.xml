@@ -7,7 +7,10 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15625" />
         <entry key="app/src/main/res/drawable/ic_alarm_black_24dp.xml" value="0.15625" />
         <entry key="app/src/main/res/drawable/ic_alarm_white_24dp.xml" value="0.15625" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.15677083333333333" />
+        <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.15677083333333333" />
         <entry key="app/src/main/res/drawable/ic_baseline_group_24.xml" value="0.15625" />
+        <entry key="app/src/main/res/drawable/ic_baseline_perm_phone_msg_24.xml" value="0.15677083333333333" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_add_24.xml" value="0.2125" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_add_24_blue.xml" value="0.2125" />
         <entry key="app/src/main/res/drawable/ic_baseline_timer_24.xml" value="0.15625" />
@@ -22,7 +25,7 @@
         <entry key="app/src/main/res/layout/activity_schedulealarm.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/fragment_contactlist.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_createalarm.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/fragment_listalarms.xml" value="0.19635416666666666" />
+        <entry key="app/src/main/res/layout/fragment_listalarms.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_listcontacts.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_message.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_schedulealarm.xml" value="0.165" />
